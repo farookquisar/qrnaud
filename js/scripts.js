@@ -172,7 +172,30 @@ function xEventListner(event) {
     playAud();
     enableDisableBut();
     }
+
   }
+
+
+    function playAud(){
+
+    audios[cnt].play();
+    playTrck=cnt;
+    //document.getElementById("loadingmsg").innerHTML = audios[cnt].src+"";
+    audios[playTrck].onerror = function() {
+        showUserMsg(cStateErr,"Please check Surah And Aya Number");
+    };
+    audios[playTrck].onloadstart = function() {
+        showUserMsg(cStateLoading,"Loading...");
+    };
+
+    audios[playTrck].onloadeddata = function() {
+        showUserMsg(cStateErr,"Playing");
+    };
+    audios[playTrck].onplaying = function() {
+        showUserMsg(cStatePlaying,vSurah+"");
+    };
+
+    }
 
   function audioEndEventListnerFn (){
     cnt++;
