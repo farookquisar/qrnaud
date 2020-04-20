@@ -6,16 +6,21 @@
   var reciterName = ""; //Global variable to track current file
   var audFileExt = ".mp3"; //Global variable to track current file
   var currentFile ="";
-
-
-
+  //var vAudPlayer = document.getElementById('QurAudio');
+  //var oAudio = document.getElementById('QurAudio');
+  var vUrl1="";//http://everyayah.com/data/";
+  var vUrl2="";//_64kbps/";
+  var reciter="";
+  var gAudSrc="";
   var vSurah ="";
   var vAyaFrm ="";
   var vAyaTo ="";
   var vSurPad="";//vSurah.padStart(3,'0');
   var vAyaFrmPad="";//vAyaFrm.padStart(3,'0');
   var vAyaToPad="";//vAyaTo.padStart(3,'0');
-
+  var vTotAyas=0;
+  var gCurAya=0;
+  var gCurAyaPad="";
   var vAyaDisp="";
   var showMsg="";
   var showErr="";
@@ -65,7 +70,20 @@ function xEventListner(event) {
 
 
     event.target.value='';
-
+    // if (event.target.id==surahId) {
+    //
+    // }
+    //
+    // //event.target.value='';
+    //
+    // if (event.target.value){
+    //
+    //   event.target.value='';
+    //   resetPlayVals();
+    //   stopAudio();
+    //   //enableDisableBut();
+    // }else {
+    // }
   }
 
   /*
@@ -132,6 +150,35 @@ function xEventListner(event) {
         stopAudio();
         enableDisableBut();
 
+        //----------------
+        //   reciterName=document.getElementById(reciterNameId).value ;
+        //   vSurah=document.getElementById(surahId).value ;
+        //   vAyaFrm=document.getElementById(ayaFrmId).value ;
+        //   vAyaTo=document.getElementById(ayaToId).value ;
+        //   if (vAyaFrm && !vAyaTo) {
+        //   document.getElementById(ayaToId).value=vAyaFrm;
+        //   vAyaTo=document.getElementById(ayaToId).value;
+        //
+        // }else if (!vAyaFrm && vAyaTo) {
+        // document.getElementById(ayaFrmId).value=vAyaTo;
+        // vAyaFrm=document.getElementById(ayaFrmId).value;
+        // }else if (vAyaFrm && vAyaTo && vAyaTo<vAyaFrm) {
+        //   document.getElementById(ayaToId).value=vAyaFrm;
+        //   vAyaTo=document.getElementById(ayaToId).value;
+        // }else if (!vSurah) {
+        //   manageErrMsg();
+        // }
+        //
+        //   vSurPad=(vSurah+"").padStart(3,'0');
+        //   vAyaFrmPad=(vAyaFrm+"").padStart(3,'0');
+        //   vAyaToPad=(vAyaTo+"").padStart(3,'0');
+        //----------------
+
+        // if (event.target.value){
+        // }else {
+        // }
+
+        //event.target.value=2;
   }
 
   /*
@@ -141,10 +188,17 @@ function xEventListner(event) {
 */
 
   if (event.type=="keyup"){
+    //if (event.target.id==surahId) {
       stopAudio();
       enableDisableBut();
-
+  //  }
+     //resetPlayVals();
+     //stopAudio();
+     //enableDisableBut();
   }
+  //alert(event.type);
+  //alert("some val");
+  //alert(evt.type);
 
   /*
    *********************************************************************************************************************************
@@ -156,6 +210,115 @@ function xEventListner(event) {
 
 
 
+
+//   var surahEle = document.getElementById(surahId);
+//   surahEle.addEventListener("change", function() {
+//         alert("surah chnged");
+//         valChanged();
+//
+// });
+
+
+  /*newAudio.onerror = function() {
+
+      showUserMsg(cStateErr,"Please check Surah And Aya Number");
+  };
+
+  //onloadstart
+  newAudio.onloadstart = function() {
+      showUserMsg(cStateLoading,"Loading...");
+  };
+
+  //onplaying
+  newAudio.onplaying = function() {
+
+      if (vAyaFrm != "" && vSurah!="") {
+      vAyaDisp=':'+vAyaFrm;
+      showMsg=vSurah+vAyaDisp;
+
+      }else if (vSurah!="") {
+      showMsg="Surah: "+vSurah;
+
+      }else {
+      showMsg="";
+      }
+      showUserMsg(cStatePlaying,showMsg);
+  };
+//}
+*/
+//alert('init');
+
+
+/*
+   *******************************************
+                   playAudio
+   *******************************************
+*/
+/*function playAudio() {
+
+  location = location.href;
+  oAudio = document.getElementById('QurAudio');
+  prepareAudioSource();
+  oAudio.play();
+}*/
+
+
+
+function playAudioNew() {
+
+  validateFromVals();
+
+  if (goodToGo){
+  prepareMediaSrc();
+  playAud();
+  enableDisableBut();
+  }
+  //document.getElementsByTagName("audio").remove();
+
+  //document.getElementById("pauseBtn").disabled = false;
+  //document.getElementById("playBtn").disabled = true;
+
+
+
+
+// if(newAudio === null ) {
+//   for (var i = vAyaFrm; i <= vAyaTo; i++) {
+//  newAudio = document.createElement("audio");
+//  newAudio.setAttribute("id", "QurAudio1");
+//  newAudio.addEventListener("ended", audioEndEventListnerFn
+// );
+//
+//
+// vAyaPad=(i+"").padStart(3,'0');
+// //newAudio.src = "http://www.everyayah.com/data/Alafasy_128kbps/"+vSurPad+vAyaPad+".mp3";
+// newAudio.src=currentFile1+reciterName+"/"+vSurPad+vAyaPad+audFileExt;
+// audios.push(newAudio);
+//
+//
+//
+//   }
+//   }
+
+
+}
+
+
+  function playAud(){
+
+  audios[cnt].play();
+  playTrck=cnt;
+  //document.getElementById("loadingmsg").innerHTML = audios[cnt].src+"";
+  audios[playTrck].onerror = function() {
+      showUserMsg(cStateErr,"Please check Surah And Aya Number");
+  };
+  audios[playTrck].onloadstart = function() {
+      showUserMsg(cStateLoading,"Loading...");
+  };
+  audios[playTrck].onplaying = function() {
+      showUserMsg(cStatePlaying,vSurah+"");
+  };
+
+  }
 
   /*
      *******************************************
@@ -184,6 +347,7 @@ function xEventListner(event) {
 
 
     vAyaPad=(i+"").padStart(3,'0');
+    //newAudio.src = "http://www.everyayah.com/data/Alafasy_128kbps/"+vSurPad+vAyaPad+".mp3";
     newAudio.src=currentFile1+reciterName+"/"+vSurPad+vAyaPad+audFileExt;
     audios.push(newAudio);
 
@@ -225,6 +389,9 @@ function xEventListner(event) {
 
 
   function validateFromVals(){
+
+  //resetPlayVals();
+  //getFormVals();
   manageErrMsg();
 
 
@@ -347,6 +514,7 @@ vAyaFrm=document.getElementById(ayaFrmId).value;
 */
 
 function chkVals() {
+  //vSurah=document.getElementById(surahId).value ;
 getSurahVal();
 
 if (vSurah == "") {
@@ -393,6 +561,12 @@ function playSajada() {
 }
 
 
+/*
+   *******************************************
+            Events (Error, Load, Loaded)
+   *******************************************
+*/
+//onError
 
 
 /*
@@ -453,13 +627,22 @@ function manageErrMsg(){
 
 function valChanged() {
  reLoadReq=true;
+ //getFormVals();
  stopAudio();
+ //defaultAyaTo();
+ //checkformVals();
+ //chkAutoPlay();
+
+
  resetPlayVals();
- enableDisableBut();
+
+enableDisableBut();
 
 }//End valChanged
 
 function enableDisableBut(){
+  //getFormVals();
+  //isPlaying();
   if (!isPlaying() ) {//Make Play button active when already not playing
   document.getElementById("pauseBtn").disabled = true;
   document.getElementById("playBtn").disabled = false;
@@ -487,6 +670,9 @@ function enableDisableBut(){
 function isPlaying(audelem) {
 if (audios[playTrck]){
    return !audios[playTrck].paused;
+  // if (!audios[playTrck].paused){
+    //isCurPlaying=true;
+  // }
 }}
 
 /*
@@ -511,6 +697,13 @@ function showUserMsg(pState,pMsg) {
       document.getElementById("playingNowMsg").innerHTML = pMsg;
       document.getElementById("errMsg").innerHTML = "";
 
+     //document.body.appendChild(x);
+  //     var x = document.createElement("IMG");
+  // x.setAttribute("src", "http://www.everyayah.com/data/QuranText/100_5.gif");
+  // x.setAttribute("width", "304");
+  // x.setAttribute("height", "228");
+  // //x.setAttribute("alt", "The Pulpit Rock");
+  // document.body.appendChild(x);
 
       }
 

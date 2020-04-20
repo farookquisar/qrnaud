@@ -134,7 +134,7 @@
 
       <div class="col-12">
       <div class="input-group">
-      <input type="text" id="surah"class="form-control form-control-lg" onfocus="this.value = '';enableDisableBut()" onkeyup="valChanged()" placeholder="Surah Number" >
+      <input type="number" id="surah" min="1" max="5" class="form-control form-control-lg" placeholder="Surah Number" >
       </div>
       </div>
 
@@ -152,7 +152,7 @@
           <div class="row my-1">
               <div class="col-12">
               <div class="input-group">
-              <input type="text" id="ayaFrm" class="form-control form-control-lg" onfocus="this.value = '';" onkeyup="valChanged()" placeholder="Aya Number">
+              <input type="number" id="ayaFrm" class="form-control form-control-lg"  placeholder="Aya Number (From)">
               </div>
               </div>
           </div>
@@ -160,7 +160,7 @@
           <div class="row my-1">
               <div class="col-12">
               <div class="input-group">
-              <input type="text" id="ayaTo" class="form-control form-control-lg" onfocus="this.value = '';" onkeyup="valChanged()" placeholder="Aya Number">
+              <input type="number" id="ayaTo" class="form-control form-control-lg"  placeholder="Aya Number (To)">
               </div>
               </div>
           </div>
