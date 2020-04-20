@@ -1,6 +1,6 @@
 //jshint esversion:6
 //initVals();
-
+//
 //function initVals(){
   var currentFile1 = "http://everyayah.com/data/"; //Global variable to track current file
   var reciterName = ""; //Global variable to track current file
