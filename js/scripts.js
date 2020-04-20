@@ -163,6 +163,17 @@ function xEventListner(event) {
      *******************************************
   */
 
+  function playAudioNew() {
+
+    validateFromVals();
+
+    if (goodToGo){
+    prepareMediaSrc();
+    playAud();
+    enableDisableBut();
+    }
+  }
+
   function audioEndEventListnerFn (){
     cnt++;
     if (cnt===audios.length){
