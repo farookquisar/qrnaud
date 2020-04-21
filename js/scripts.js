@@ -30,6 +30,8 @@
   const surahMulkId="surahMulk";
   const surahSajadaId="surahSajada";
   const surahKahfId ="surahKahf";
+  var totPlaycnt=0;
+
 
   const reciterNameId ="reciterList";
   var playTrck= 0;
@@ -44,6 +46,7 @@
   var curEventType="";
 
   var audios = [];
+  var audioAyas=[];
   var cnt=0;
   var vAyaPad;
   //var oAudio;
@@ -323,6 +326,11 @@ function getFormInputs() {
 
     audios[cnt].play();
     playTrck=cnt;
+    totPlaycnt++;
+    if (totPlaycnt>3) {
+    stopAudio();
+    totPlaycnt=0;
+    }
   //   console.log("playAud:"+cnt);
   // //  if (cnt===1){
   //   if (cnt>0) {
@@ -340,10 +348,11 @@ function getFormInputs() {
     };
 
     // audios[playTrck].onplay = function() {
-    //     showUserMsg(cStatePlaying,"Playing");
+         //showUserMsg(cStatePlaying,"Playing");
+    //     console.log("Playbut pressed");
     // };
     audios[playTrck].onplaying = function() {
-        showUserMsg(cStatePlaying,vSurah+":"+cnt);
+        showUserMsg(audioAyas[playTrck]);
     };
 
     }
@@ -380,6 +389,7 @@ function getFormInputs() {
     vAyaPad=(i+"").padStart(3,'0');
     newAudio.src=currentFile1+reciterName+"/"+vSurPad+vAyaPad+audFileExt;
     audios.push(newAudio);
+    audioAyas.push(vSurah+":"+i);
 
 
 
@@ -403,8 +413,11 @@ function getFormInputs() {
     currentFile="https://media.blubrry.com/muslim_central_quran/podcasts.qurancentral.com/saud-al-shuraim/saud-al-shuraim-"+vSurPad+".mp3";
     }
     newAudio = document.createElement("audio");
+    newAudio.controls = 'controls';
+    document.getElementById('audPlayerDiv').appendChild(newAudio);
     newAudio.src=currentFile;
     audios.push(newAudio);
+    audioAyas.push(vSurPad);
   }
 
 
@@ -430,7 +443,10 @@ function getFormInputs() {
     if (!(lastEventTriggerId===pauseBtnId && curEventTriggerId===playBtnId)) {
       newAudio=null;
       audios = [];
+      audioAyas = [];
       cnt=0;
+      var node = document.getElementById('audPlayerDiv');
+      node.innerHTML = "";
     }
 
   }
@@ -565,33 +581,36 @@ hasFilled = false ;
 */
 function playAyaKursi() {
   stopAudio();
-  setSurahVal(2) ;
-  setAyaFrmVal(255);
-  setAyaToVal(255);
+  document.getElementById(surahId).value=2;
+  document.getElementById(ayaToId).value=255;
+  document.getElementById(ayaFrmId).value=255;
   playAudioNew();
 }
 
 function playMulk() {
   stopAudio();
-  setSurahVal(67) ;
-  setAyaFrmVal("1");
-  setAyaToVal("30");
+  document.getElementById(surahId).value=67;
+  document.getElementById(ayaToId).value="";
+  document.getElementById(ayaFrmId).value="";
+  // setSurahVal(67) ;
+  // setAyaFrmVal("1");
+  // setAyaToVal("30");
   playAudioNew();
 }
 
 function playKahf() {
   stopAudio();
-  setSurahVal(18) ;
-  setAyaFrmVal("1");
-  setAyaToVal("110");
+  document.getElementById(surahId).value=18;
+  document.getElementById(ayaToId).value="";
+  document.getElementById(ayaFrmId).value="";
   playAudioNew();
 }
 
 function playSajada() {
   stopAudio();
-  setSurahVal(32) ;
-  setAyaFrmVal("1");
-  setAyaToVal("30");
+  document.getElementById(surahId).value=32;
+  document.getElementById(ayaToId).value="";
+  document.getElementById(ayaFrmId).value="";
   playAudioNew();
 }
 
