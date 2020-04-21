@@ -6,16 +6,12 @@
   var reciterName = ""; //Global variable to track current file
   var audFileExt = ".mp3"; //Global variable to track current file
   var currentFile ="";
-
-
-
   var vSurah ="";
   var vAyaFrm ="";
   var vAyaTo ="";
   var vSurPad="";//vSurah.padStart(3,'0');
   var vAyaFrmPad="";//vAyaFrm.padStart(3,'0');
   var vAyaToPad="";//vAyaTo.padStart(3,'0');
-
   var vAyaDisp="";
   var showMsg="";
   var showErr="";
@@ -26,11 +22,26 @@
   const surahId ="surah";
   const ayaFrmId ="ayaFrm";
   const ayaToId ="ayaTo";
+  const playBtnId="playBtn";
+  const pauseBtnId="pauseBtn";
+  const nextBtnId="nextBtn";
+  const prevBtnId ="prevBtn";
+  const ayaKursiId="ayaKursi";
+  const surahMulkId="surahMulk";
+  const surahSajadaId="surahSajada";
+  const surahKahfId ="surahKahf";
+
   const reciterNameId ="reciterList";
   var playTrck= 0;
   var gProceedFlag=false;
   var tmpSwapNum=0;
   var onFocusVal=1;
+  var lastEventTriggerId="";
+  var lastTriggerItemVal="";
+  var lastEventType="";
+  var curEventTriggerId="";
+  var curTriggerItemVal="";
+  var curEventType="";
 
   var audios = [];
   var cnt=0;
@@ -40,22 +51,51 @@
   var isCurPlaying=false;
   goodToGo=true;
 
+//console.log(ayaKursiId);
+//All Buttons
+  document.getElementById(playBtnId).addEventListener("click", xEventListner);
+  document.getElementById(pauseBtnId).addEventListener("click", xEventListner);
+  document.getElementById(nextBtnId).addEventListener("click", xEventListner);
+  document.getElementById(prevBtnId).addEventListener("click", xEventListner);
+  document.getElementById(ayaKursiId).addEventListener("click", xEventListner);
+  document.getElementById(surahMulkId).addEventListener("click", xEventListner);
+  document.getElementById(surahSajadaId).addEventListener("click", xEventListner);
+  document.getElementById(surahKahfId).addEventListener("click", xEventListner);
+
+//All Inputs
   document.getElementById(ayaFrmId).addEventListener("change", xEventListner);
   document.getElementById(ayaFrmId).addEventListener("focus", xEventListner);
-  document.getElementById(ayaFrmId).addEventListener("keyup", xEventListner);
-  //
+  document.getElementById(ayaFrmId).addEventListener("keyup", xEventListner);  //
   document.getElementById(ayaToId).addEventListener("change", xEventListner);
   document.getElementById(ayaToId).addEventListener("focus", xEventListner);
-  document.getElementById(ayaToId).addEventListener("keyup", xEventListner);
-  //
+  document.getElementById(ayaToId).addEventListener("keyup", xEventListner);  //
   document.getElementById(surahId).addEventListener("change", xEventListner);
   document.getElementById(surahId).addEventListener("focus", xEventListner);
   document.getElementById(surahId).addEventListener("keyup", xEventListner);
   //
   document.getElementById(reciterNameId).addEventListener("change", xEventListner);
-  reciterName=document.getElementById(reciterNameId).value ;
+  //reciterName=document.getElementById(reciterNameId).value ;
+
+
 
 function xEventListner(event) {
+lastEventTriggerId=curEventTriggerId;
+lastTriggerItemVal=curTriggerItemVal;
+lastEventType=curEventType;
+//var evntTrgt =event.currentTarget;
+curEventTriggerId=event.target.id;
+curTriggerItemVal=event.target.value;
+curEventType=event.type;
+// console.log("xEventListner starts");
+// console.log("lastEventTriggerId:"+lastEventTriggerId);
+// console.log("lastTriggerItemVal:"+lastTriggerItemVal);
+// console.log("lastEventType:"+lastEventType);
+// console.log("curEventTriggerId:"+curEventTriggerId);
+// console.log("curTriggerItemVal:"+curTriggerItemVal);
+// console.log("curEventType:"+curEventType);
+
+//console.log("item val: "+event.target.value);
+//console.log("item id: "+event.target.id);
   /*
    *********************************************************************************************************************************
                                                               focus Event
@@ -63,8 +103,17 @@ function xEventListner(event) {
 */
   if (event.type=="focus"){
 
+      // if (curEventTriggerId==surahId){
+      //       if (curTriggerItemVal ){
+      //       enableDisableBut();
+      //       console.log("from focus has val: "+event.target.value);
+      //       }else {
+      //       console.log("from focus No val");
+      //       }
+      // }
 
-    event.target.value='';
+      event.target.value="";
+      enableDisableBut();
 
   }
 
@@ -76,7 +125,13 @@ function xEventListner(event) {
 
   if (event.type=="change"){
 
-        //------------------------------------------Surah
+    console.log("change: "+curEventTriggerId);
+    console.log("change: "+reciterNameId);
+    if (curEventTriggerId===reciterNameId){
+       stopAudio();
+    }
+
+    /*    //------------------------------------------Surah
         if (event.target.id==surahId){
         vSurah=event.target.value ;
         vSurPad=(vSurah+"").padStart(3,'0');
@@ -112,7 +167,6 @@ function xEventListner(event) {
         vAyaFrmPad=(vAyaFrm+"").padStart(3,'0');
 
         }else if ( vAyaTo<vAyaFrm) {
-        console.log("less val");
         tmpSwapNum=vAyaTo;
         document.getElementById(ayaToId).value=vAyaFrm;
         vAyaTo=vAyaFrm;
@@ -130,7 +184,7 @@ function xEventListner(event) {
 
         resetPlayVals();
         stopAudio();
-        enableDisableBut();
+        enableDisableBut();*/
 
   }
 
@@ -144,8 +198,51 @@ function xEventListner(event) {
       stopAudio();
       enableDisableBut();
 
+      var ayaToVal = document.getElementById(ayaToId).value;
+      var ayaFrmVal = document.getElementById(ayaFrmId).value;
+      if ( ((curEventTriggerId===ayaFrmId) && (!ayaToVal))  ||  (lastEventTriggerId===ayaFrmId && lastTriggerItemVal===ayaToVal && lastEventType==="keyup")  ) {  //(  (!ayaToVal) || (ayaToVal===ayaFrmVal) )){
+        console.log("else curEventTriggerId:"+curEventTriggerId+" ayaToId:"+ayaToId+" lastEventTriggerId:"+lastEventTriggerId+" ayaFrmId:"+ayaFrmId+" lastTriggerItemVal:"+lastTriggerItemVal+" ayaToVal:"+ayaToVal);
+      document.getElementById(ayaToId).value=curTriggerItemVal;
+    }else if (    (curEventTriggerId===ayaToId && (!ayaFrmVal ))      ||  (lastEventTriggerId===ayaToId && lastTriggerItemVal===ayaFrmVal && lastEventType==="keyup")  ) {
+      console.log("else curEventTriggerId:"+curEventTriggerId+" ayaToId:"+ayaToId+" lastEventTriggerId:"+lastEventTriggerId+" ayaToId:"+ayaToId+" lastTriggerItemVal:"+lastTriggerItemVal+" ayaFrmVal:"+ayaFrmVal);
+      document.getElementById(ayaFrmId).value=curTriggerItemVal;
+      }
+
+
+
   }
 
+  /*
+   *********************************************************************************************************************************
+                                                              onclick Event
+   *********************************************************************************************************************************
+*/
+  if (event.type=="click"){
+    console.log("click event handler");
+
+        if (curEventTriggerId==="playBtn"){
+        playAudioNew();
+        }else if (curEventTriggerId==="pauseBtn"){
+        stopAudio();
+        }else if (curEventTriggerId==="nextBtn"){
+        nextAya();
+        }else if (curEventTriggerId==="prevBtn"){
+        prevAya();
+        }else if (curEventTriggerId==="ayaKursi"){
+        playAyaKursi();
+        }else if (curEventTriggerId==="surahMulk"){
+        playMulk();
+        }else if (curEventTriggerId==="surahSajada"){
+        playSajada();
+        }else if (curEventTriggerId==="surahKahf"){
+        playKahf();
+        }
+
+
+
+
+
+  }
   /*
    *********************************************************************************************************************************
                                                               xEventListner End
@@ -153,7 +250,26 @@ function xEventListner(event) {
   */
 } //xEventListner
 
+function getFormInputs() {
+  //vSurah=edocument.getElementById(surahId).value ;
+  //vSurPad=(vSurah+"").padStart(3,'0');
+  setSurahVal("");
 
+  //vAyaFrm=document.getElementById(ayaFrmId).value ;
+  //vAyaFrmPad=(vAyaFrm+"").padStart(3,'0');
+  setAyaFrmVal("");
+
+  //vAyaTo=document.getElementById(ayaToId).value;
+  //vAyaToPad=(vAyaTo+"").padStart(3,'0');
+  setAyaToVal("");
+
+  //reciterName=document.getElementById(reciterNameId).value ;
+  setReciterName("");
+
+
+
+
+}
 
 
 
@@ -167,7 +283,10 @@ function xEventListner(event) {
 
     validateFromVals();
 
+
     if (goodToGo){
+    getFormInputs();
+    resetPlayVals();
     prepareMediaSrc();
     playAud();
     enableDisableBut();
@@ -266,10 +385,13 @@ function xEventListner(event) {
   }
 
   function resetPlayVals() {
-    goodToGo=true;
-    newAudio=null;
-    audios = [];
-    cnt=0;
+    //goodToGo=true;
+    if (!(lastEventTriggerId===pauseBtnId && curEventTriggerId===playBtnId)) {
+      newAudio=null;
+      audios = [];
+      cnt=0;
+    }
+
   }
 
   /*
@@ -319,19 +441,19 @@ function prevAya() {
 
 function seekBackward() {
 
-  if (vSurah && vAyaFrm && vAyaTo && parseInt(vAyaFrm)===parseInt(vAyaTo) && parseInt(vAyaFrm)>1) {
+  if (vSurah && vAyaFrm && vAyaTo && parseInt(vAyaTo)>parseInt(vAyaFrm) && parseInt(vAyaTo)>1) {
        stopAudio();
-       document.getElementById(ayaFrmId).value=parseInt(vAyaFrm)-1;
-       document.getElementById(ayaToId).value=parseInt(vAyaFrm)-1;
+       setAyaToVal (parseInt(vAyaTo)-1);// document.getElementById(ayaFrmId).value=parseInt(vAyaFrm)-1;
+       //document.getElementById(ayaToId).value=parseInt(vAyaFrm)-1;
        playAudioNew();
   }
 }
 
 function seekForward() {
-  if (vSurah && vAyaFrm && vAyaTo && parseInt(vAyaFrm)===parseInt(vAyaTo) ) {
+  if (vSurah && vAyaFrm && vAyaTo ) {
        stopAudio();
-       document.getElementById(ayaFrmId).value=parseInt(vAyaFrm)+1;
-       document.getElementById(ayaToId).value=parseInt(vAyaFrm)+1;
+       setAyaToVal (parseInt(vAyaTo)+1);// document.getElementById(ayaFrmId).value=parseInt(vAyaFrm)-1;
+       //document.getElementById(ayaToId).value=parseInt(vAyaFrm)-1;
        playAudioNew();
   }
 }
@@ -391,6 +513,8 @@ hasFilled = false ;
   hasFilled ? (document.getElementById("playBtn").disabled = false) : (document.getElementById("playBtn").disabled = true);
 
 
+
+
 }
 
 /*
@@ -399,33 +523,97 @@ hasFilled = false ;
    *******************************************
 */
 function playAyaKursi() {
-  document.getElementById(surahId).value=2 ;
-  document.getElementById(ayaFrmId).value =255;
-  reLoadReq=true;
+  stopAudio();
+  setSurahVal(2) ;
+  setAyaFrmVal(255);
+  setAyaToVal(255);
   playAudioNew();
 }
 
 function playMulk() {
-  document.getElementById(surahId).value=67;
-  document.getElementById(ayaFrmId).value ="";
-  reLoadReq=true;
+  stopAudio();
+  setSurahVal(67) ;
+  setAyaFrmVal("1");
+  setAyaToVal("30");
   playAudioNew();
 }
 
 function playKahf() {
-  document.getElementById(surahId).value=18 ;
-  document.getElementById(ayaFrmId).value ="";
-  reLoadReq=true;
+  stopAudio();
+  setSurahVal(18) ;
+  setAyaFrmVal("1");
+  setAyaToVal("110");
   playAudioNew();
 }
 
 function playSajada() {
-  document.getElementById(surahId).value=32 ;
-  document.getElementById(ayaFrmId).value ="";
-  reLoadReq=true;
+  stopAudio();
+  setSurahVal(32) ;
+  setAyaFrmVal("1");
+  setAyaToVal("30");
   playAudioNew();
 }
 
+
+function setSurahVal(pVal) {
+  var locSurVal;
+  if (!pVal) {
+  locSurVal=document.getElementById(surahId).value;
+}else {
+  locSurVal=pVal;
+}
+  document.getElementById(surahId).value=locSurVal ;
+  vSurah=locSurVal;
+  vSurPad=(vSurah+"").padStart(3,'0');
+}
+
+//setAyaFrmVal
+function setAyaFrmVal(pVal) {
+  var locAyaFrmVal;
+
+  var locAyahFrm =document.getElementById(ayaFrmId).value;
+  var locAyahTo =document.getElementById(ayaToId).value;
+  if (locAyahFrm && locAyahTo && locAyahTo<locAyahFrm){
+  document.getElementById(ayaFrmId).value=locAyahTo;
+  document.getElementById(ayaToId).value=locAyahFrm;
+  }
+
+  if (!pVal) {
+  locAyaFrmVal=document.getElementById(ayaFrmId).value;
+}else {
+  locAyaFrmVal=pVal;
+}
+  document.getElementById(ayaFrmId).value=locAyaFrmVal ;
+  vAyaFrm=locAyaFrmVal;
+  vAyaFrmPad=(vAyaFrm+"").padStart(3,'0');
+}
+
+//setAyaToVal
+function setAyaToVal(pVal) {
+  var locAyaToVal;
+  var locAyahFrm =document.getElementById(ayaFrmId).value;
+  var locAyahTo =document.getElementById(ayaToId).value;
+  if (locAyahFrm && locAyahTo && locAyahTo<locAyahFrm){
+  document.getElementById(ayaFrmId).value=locAyahTo;
+  document.getElementById(ayaToId).value=locAyahFrm;
+  }
+
+
+
+  if (!pVal) {
+  locAyaToVal=document.getElementById(ayaToId).value;
+  }else {
+    locAyaToVal=pVal;
+  }
+  document.getElementById(ayaToId).value=locAyaToVal ;
+  vAyaTo=locAyaToVal;
+  vAyaToPad=(vAyaTo+"").padStart(3,'0');
+}
+
+
+function setReciterName() {
+  reciterName=document.getElementById(reciterNameId).value ;
+}
 
 
 
@@ -462,10 +650,12 @@ function checkformVals(){
 }
 
 function manageErrMsg(){
+  var locSurahId =document.getElementById(surahId).value;
   document.getElementById("errMsg").innerHTML = "";
   goodToGo=true;
 
-  if    (   (!(vSurah))        ) {
+
+  if    (   (!(locSurahId))        ) {
   document.getElementById("errMsg").innerHTML = "Surah Number Please";
   goodToGo=false;
   }
@@ -481,36 +671,29 @@ function manageErrMsg(){
 
 /*
    *******************************************
-   valChanged
+   enableDisableBut
    *******************************************
 */
 
-function valChanged() {
- reLoadReq=true;
- stopAudio();
- resetPlayVals();
- enableDisableBut();
-
-}//End valChanged
 
 function enableDisableBut(){
-  if (!isPlaying() ) {//Make Play button active when already not playing
-  document.getElementById("pauseBtn").disabled = true;
-  document.getElementById("playBtn").disabled = false;
-} else {//Make Play button active when already not Puased
-   document.getElementById("pauseBtn").disabled = false;
-   document.getElementById("playBtn").disabled = true;
+      if (isPlaying() ) {//Make Play button active when already not playing
+      document.getElementById("pauseBtn").disabled = false;
+      document.getElementById("playBtn").disabled = true;
+      } else {//Make Play button active when already not Puased
+      document.getElementById("pauseBtn").disabled = true;
+      document.getElementById("playBtn").disabled = false;
 
-  }
+      }
 
-  if (vAyaFrm && vAyaTo && vSurah) {
-  if (parseInt(vAyaFrm)>1){
-  document.getElementById("prevBtn").disabled = false; }
-  document.getElementById("nextBtn").disabled = false;
-}else {
-  document.getElementById("prevBtn").disabled = true;
-  document.getElementById("nextBtn").disabled = true;
-}
+      if (vAyaFrm && vAyaTo && vSurah) {
+      if (parseInt(vAyaTo)>1){
+      document.getElementById("prevBtn").disabled = false; }
+      document.getElementById("nextBtn").disabled = false;
+      }else {
+      document.getElementById("prevBtn").disabled = true;
+      document.getElementById("nextBtn").disabled = true;
+      }
 }
 
 /*
@@ -525,7 +708,7 @@ if (audios[playTrck]){
 
 /*
    *******************************************
-   valChanged
+   showUserMsg
    *******************************************
 */
 function showUserMsg(pState,pMsg) {

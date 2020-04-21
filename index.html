@@ -62,10 +62,10 @@
         <div class="col-12">
           <div class="btn-group pr-1">
             <!-- <div class="d-flex justify-content-center"> -->
-            <button type="button"  id="ayaKursi"  class="btn  -dirPlayBtn" onclick="playAyaKursi()" >A.Kursi</button>
-            <button type="button"  id="ayaMulk" class="btn  -dirPlayBtn" onclick="playMulk()" >Mulk</button>
-            <button type="button" id="ayaKahf" class="btn  -dirPlayBtn" onclick="playKahf()" >Kahf</button>
-            <button type="button"  id="AyaSajada" class="btn  -dirPlayBtn" onclick="playSajada()">Sajada</button>
+            <button type="button"  id="ayaKursi"  class="btn  -dirPlayBtn"  >A.Kursi</button>
+            <button type="button"  id="surahMulk" class="btn  -dirPlayBtn"  >Mulk</button>
+            <button type="button" id="surahKahf" class="btn  -dirPlayBtn"  >Kahf</button>
+            <button type="button"  id="surahSajada" class="btn  -dirPlayBtn" >Sajada</button>
           <!-- </div> -->
           </div>
         </div>
@@ -107,7 +107,7 @@
 
         <div class="col-12">
         <div class="input-group">
-        <select id="reciterList" class="select2 form-control form-control-lg" onchange="valChanged()">
+        <select id="reciterList" class="select2 form-control form-control-lg" >
         <option value="Alafasy_128kbps">Mishary</option>
         <option value="Abdul_Basit_Mujawwad_128kbps">A.Basit</option>
         <option value="Ghamadi_40kbps">Ghamadi</option>
@@ -184,12 +184,12 @@
 
             <div class="btn-group">
 
-              <button type="button"  id="prevBtn"  class="btn -pageBtns  mr-1" onclick="prevAya()" disabled>&lt;&lt;</button>
-              <button type="button"  id="nextBtn" class="btn -pageBtns mr-3" onclick="nextAya()" disabled>&gt;&gt;</button>
+              <button type="button"  id="prevBtn"  class="btn -pageBtns  mr-1"  disabled>&lt;&lt;</button>
+              <button type="button"  id="nextBtn" class="btn -pageBtns mr-3"  disabled>&gt;&gt;</button>
 
-              <button type="button" id="pauseBtn" class="btn -pageBtns  mr-1" onclick="stopAudio()" disabled>Pause</button>
+              <button type="button" id="pauseBtn" class="btn -pageBtns  mr-1"  disabled>Pause</button>
               <!--button type="button"  id="playBtn" class="btn -pageBtns mr-1" onclick="playAudio()">Play</button-->
-              <button type="button"  id="playBtn" class="btn -pageBtns mr-1" onclick="playAudioNew()" disabled>Play</button>
+              <button type="button"  id="playBtn" class="btn -pageBtns mr-1"  disabled>Play</button>
 
             </div>
 
