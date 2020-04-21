@@ -771,7 +771,7 @@ if (audios[playTrck]){
    showUserMsg
    *******************************************
 */
-function showUserMsg(pState,pMsg) {
+function showUserMsg(pState,pMsg) { 
 
       if (pState==cStateErr) {
       document.getElementById("loadingmsg").innerHTML = "";
