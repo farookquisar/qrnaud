@@ -77,6 +77,30 @@
   //reciterName=document.getElementById(reciterNameId).value ;
 
 
+//   var audio = document.createElement('audio');
+//   audio.setAttribute('controls', 'controls');
+//
+//   var ogg = document.createElement('source');
+//   ogg.setAttribute('src', 'http://everyayah.com/data/Alafasy_128kbps/001001.mp3');
+//   ogg.setAttribute('type', 'audio/mp3');
+//
+//   var mp3 = document.createElement('source');
+//   mp3.setAttribute('src', 'http://everyayah.com/data/Alafasy_128kbps/001002.mp3');
+//   mp3.setAttribute('type', 'audio/mp3');
+//
+//   audio.appendChild(ogg);
+//   audio.appendChild(mp3);
+// audio.load();
+// //audio.play();
+// var sound      = document.createElement('audio');
+// sound.id       = 'audio-player';
+// sound.controls = 'controls';
+// sound.src      = 'http://everyayah.com/data/Alafasy_128kbps/001002.mp3';
+// sound.type     = 'audio/mpeg';
+// document.getElementById('song').appendChild(sound);
+
+
+
 
 function xEventListner(event) {
 lastEventTriggerId=curEventTriggerId;
@@ -299,6 +323,14 @@ function getFormInputs() {
 
     audios[cnt].play();
     playTrck=cnt;
+  //   console.log("playAud:"+cnt);
+  // //  if (cnt===1){
+  //   if (cnt>0) {
+  //   document.getElementById('song').removeChild(audios[cnt-1]) ;
+  //   }
+  //   document.getElementById('song').appendChild(audios[cnt]) ;
+  //   //}
+
     //document.getElementById("loadingmsg").innerHTML = audios[cnt].src+"";
     audios[playTrck].onerror = function() {
         showUserMsg(cStateErr,"Please check Surah And Aya Number");
@@ -307,11 +339,11 @@ function getFormInputs() {
         showUserMsg(cStateLoading,"Loading...");
     };
 
-    audios[playTrck].onloadeddata = function() {
-        showUserMsg(cStateErr,"Playing");
-    };
+    // audios[playTrck].onplay = function() {
+    //     showUserMsg(cStatePlaying,"Playing");
+    // };
     audios[playTrck].onplaying = function() {
-        showUserMsg(cStatePlaying,vSurah+"");
+        showUserMsg(cStatePlaying,vSurah+":"+cnt);
     };
 
     }
@@ -324,16 +356,23 @@ function getFormInputs() {
        playAud();
   }
 
-
+  // var sound      = document.createElement('audio');
+  // sound.id       = 'audio-player';
+  // sound.controls = 'controls';
+  // sound.src      = 'http://everyayah.com/data/Alafasy_128kbps/001002.mp3';
+  // sound.type     = 'audio/mpeg';
+  // document.getElementById('song').appendChild(sound);
   function prepareMediaSrc(){
     if(newAudio === null ) {
 
       if (vAyaFrm || vAyaTo) {//Aya Play
       for (var i = vAyaFrm; i <= vAyaTo; i++) {
      newAudio = document.createElement("audio");
-     newAudio.setAttribute("id", "QurAudio1");
-     newAudio.setAttribute('controls', 'controls');
+     newAudio.controls = 'controls';
 
+     //newAudio.setAttribute("id", "QurAudio1");
+     //newAudio.setAttribute('controls', 'controls');
+     //audio.appendChild(ogg);
      newAudio.addEventListener("ended", audioEndEventListnerFn
     );
 
