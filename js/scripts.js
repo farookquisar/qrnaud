@@ -422,6 +422,7 @@ function audioEndEventListnerFn (){
     newAudio.src=currentFile1+reciterName+"/"+vSurPad+vAyaPad+audFileExt;
     audios.push(newAudio);
     audioAyas.push(vSurah+":"+i);
+    newAudio.load();
 
 
 
