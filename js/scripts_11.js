@@ -54,6 +54,7 @@
   var isCurPlaying=false;
   goodToGo=true;
 
+//console.log(ayaKursiId);
 //All Buttons
   document.getElementById(playBtnId).addEventListener("click", xEventListner);
   document.getElementById(pauseBtnId).addEventListener("click", xEventListner);
@@ -112,7 +113,16 @@ lastEventType=curEventType;
 curEventTriggerId=event.target.id;
 curTriggerItemVal=event.target.value;
 curEventType=event.type;
+// console.log("xEventListner starts");
+// console.log("lastEventTriggerId:"+lastEventTriggerId);
+// console.log("lastTriggerItemVal:"+lastTriggerItemVal);
+// console.log("lastEventType:"+lastEventType);
+// console.log("curEventTriggerId:"+curEventTriggerId);
+// console.log("curTriggerItemVal:"+curTriggerItemVal);
+// console.log("curEventType:"+curEventType);
 
+//console.log("item val: "+event.target.value);
+//console.log("item id: "+event.target.id);
   /*
    *********************************************************************************************************************************
                                                               focus Event
@@ -123,12 +133,14 @@ curEventType=event.type;
       // if (curEventTriggerId==surahId){
       //       if (curTriggerItemVal ){
       //       enableDisableBut();
+      //       console.log("from focus has val: "+event.target.value);
       //       }else {
+      //       console.log("from focus No val");
       //       }
       // }
 
       event.target.value="";
-      //enableDisableBut();
+      enableDisableBut();
 
   }
 
@@ -140,6 +152,8 @@ curEventType=event.type;
 
   if (event.type=="change"){
 
+    console.log("change: "+curEventTriggerId);
+    console.log("change: "+reciterNameId);
     if (curEventTriggerId===reciterNameId){
        stopAudio();
     }
@@ -209,20 +223,22 @@ curEventType=event.type;
 
   if (event.type=="keyup"){
       stopAudio();
-      /*enableDisableBut();
+      enableDisableBut();
 
       var ayaToVal = document.getElementById(ayaToId).value;
       var ayaFrmVal = document.getElementById(ayaFrmId).value;
 
       if  ((curEventTriggerId===ayaFrmId) && (!ayaToVal) ||  ayaToVal< ayaFrmVal ){
       setAyaToVal(ayaFrmVal);
-    }*/
+      }
 
       /*var ayaToVal = document.getElementById(ayaToId).value;
       var ayaFrmVal = document.getElementById(ayaFrmId).value;
       if ( ((curEventTriggerId===ayaFrmId) && (!ayaToVal))  ||  (lastEventTriggerId===ayaFrmId && lastTriggerItemVal===ayaToVal && lastEventType===")  ) {  //(  (!ayaToVal) || (ayaToVal===ayaFrmVal) )){
+        console.log("else curEventTriggerId:"+curEventTriggerId+" ayaToId:"+ayaToId+" lastEventTriggerId:"+lastEventTriggerId+" ayaFrmId:"+ayaFrmId+" lastTriggerItemVal:"+lastTriggerItemVal+" ayaToVal:"+ayaToVal);
       document.getElementById(ayaToId).value=curTriggerItemVal;
     }else if (    (curEventTriggerId===ayaToId && (!ayaFrmVal ))      ||  (lastEventTriggerId===ayaToId && lastTriggerItemVal===ayaFrmVal && lastEventType==="keyup")  ) {
+      console.log("else curEventTriggerId:"+curEventTriggerId+" ayaToId:"+ayaToId+" lastEventTriggerId:"+lastEventTriggerId+" ayaToId:"+ayaToId+" lastTriggerItemVal:"+lastTriggerItemVal+" ayaFrmVal:"+ayaFrmVal);
       document.getElementById(ayaFrmId).value=curTriggerItemVal;
       }
 
@@ -236,6 +252,7 @@ curEventType=event.type;
    *********************************************************************************************************************************
 */
   if (event.type=="click"){
+    console.log("click event handler");
 
         if (curEventTriggerId==="playBtn"){
         playAudioNew();
@@ -283,38 +300,12 @@ function getFormInputs() {
   //reciterName=document.getElementById(reciterNameId).value ;
   setReciterName("");
 
-  //ChkAyaToAndAyaFrm
-  chkAyaToAndAyaFrm();
+
+
 
 }
 
-/*
- *********************************************************************************************************************************
-                                                            xEventListner End
- *********************************************************************************************************************************
-*/
 
-function chkAyaToAndAyaFrm() {
-   var locAyahFrm =document.getElementById(ayaFrmId).value;
-   var locAyahTo =document.getElementById(ayaToId).value;
-   var tmpSwap;
-
-        if (locAyahFrm || locAyahTo){
-                if (!locAyahFrm){
-                setAyaFrmVal(locAyahTo);
-                }else if (!locAyahTo) {
-                setAyaToVal(locAyahFrm);
-                }else if (locAyahFrm>locAyahTo) {
-                setAyaFrmVal(locAyahTo);
-                setAyaToVal(locAyahFrm);
-                }else if (locAyahTo<locAyahFrm) {
-                setAyaFrmVal(locAyahTo);
-                setAyaToVal(locAyahFrm);
-                }
-
-        }
-
-}
 
   /*
      *******************************************
@@ -332,7 +323,7 @@ function chkAyaToAndAyaFrm() {
     resetPlayVals();
     prepareMediaSrc();
     playAud();
-    //enableDisableBut();
+    enableDisableBut();
     }
 
   }
@@ -342,12 +333,12 @@ function chkAyaToAndAyaFrm() {
 
     audios[cnt].play();
     playTrck=cnt;
-
     totPlaycnt++;
-    if (totPlaycnt>50) {
+    if (totPlaycnt>3) {
     stopAudio();
     totPlaycnt=0;
     }
+  //   console.log("playAud:"+cnt);
   // //  if (cnt===1){
   //   if (cnt>0) {
   //   document.getElementById('song').removeChild(audios[cnt-1]) ;
@@ -365,11 +356,10 @@ function chkAyaToAndAyaFrm() {
 
     // audios[playTrck].onplay = function() {
          //showUserMsg(cStatePlaying,"Playing");
+    //     console.log("Playbut pressed");
     // };
     audios[playTrck].onplaying = function() {
-        //showUserMsg(cStatePlaying, audioAyas[playTrck]+" ("+audios[playTrck].duration.toFixed(2)+" Sec)");
-        showUserMsg(cStatePlaying, audioAyas[playTrck]+" ("+ formatSecondsAsTime (audios[playTrck].duration.toFixed(2))+")");
-
+        showUserMsg(audioAyas[playTrck]);
     };
 
     }
@@ -448,23 +438,6 @@ function chkAyaToAndAyaFrm() {
   }
 
 
-
-  function formatSecondsAsTime(secs, format) {
-    var hr  = Math.floor(secs / 3600);
-    var min = Math.floor((secs - (hr * 3600))/60);
-    var sec = Math.floor(secs - (hr * 3600) -  (min * 60));
-
-    if (min < 10){
-      min = "0" + min;
-    }
-    if (sec < 10){
-      sec  = "0" + sec;
-    }
-
-    return hr + ':' + min + ':' + sec;
-  }
-
-
   function validateFromVals(){
   manageErrMsg();
 
@@ -495,7 +468,7 @@ function chkAyaToAndAyaFrm() {
       audios[playTrck].pause();
     }
 
-      //enableDisableBut();
+      enableDisableBut();
 
 
 
@@ -749,7 +722,7 @@ function manageErrMsg(){
 */
 
 
-function enableDisableButBkp(){
+function enableDisableBut(){
       if (isPlaying() ) {//Make Play button active when already not playing
       document.getElementById("pauseBtn").disabled = false;
       document.getElementById("playBtn").disabled = true;
