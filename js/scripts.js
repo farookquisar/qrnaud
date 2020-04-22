@@ -295,24 +295,24 @@ function getFormInputs() {
 */
 
 function chkAyaToAndAyaFrm() {
-   var locAyahFrm =document.getElementById(ayaFrmId).value;
-   var locAyahTo =document.getElementById(ayaToId).value;
-   var tmpSwap;
+      var locAyahFrm =document.getElementById(ayaFrmId).value;
+      var locAyahTo =document.getElementById(ayaToId).value;
+      var tmpSwap;
 
-        if (locAyahFrm || locAyahTo){
-                if (!locAyahFrm){
-                setAyaFrmVal(locAyahTo);
-                }else if (!locAyahTo) {
-                setAyaToVal(locAyahFrm);
-                }else if (locAyahFrm>locAyahTo) {
-                setAyaFrmVal(locAyahTo);
-                setAyaToVal(locAyahFrm);
-                }else if (locAyahTo<locAyahFrm) {
-                setAyaFrmVal(locAyahTo);
-                setAyaToVal(locAyahFrm);
-                }
+      if (locAyahFrm || locAyahTo){
+              if (!locAyahFrm){
+              setAyaFrmVal(locAyahTo);
+              }else if (!locAyahTo) {
+              setAyaToVal(locAyahFrm);
+              }else if (locAyahFrm>locAyahTo) {
+              setAyaFrmVal(locAyahTo);
+              setAyaToVal(locAyahFrm);
+              }else if (locAyahTo<locAyahFrm) {
+              setAyaFrmVal(locAyahTo);
+              setAyaToVal(locAyahFrm);
+              }
 
-        }
+      }
 
 }
 
@@ -343,11 +343,7 @@ function chkAyaToAndAyaFrm() {
     audios[cnt].play();
     playTrck=cnt;
 
-    totPlaycnt++;
-    if (totPlaycnt>50) {
-    stopAudio();
-    totPlaycnt=0;
-    }
+
   // //  if (cnt===1){
   //   if (cnt>0) {
   //   document.getElementById('song').removeChild(audios[cnt-1]) ;
@@ -374,13 +370,21 @@ function chkAyaToAndAyaFrm() {
 
     }
 
-  function audioEndEventListnerFn (){
-    cnt++;
-    if (cnt===audios.length){
-      cnt=0;
-    }
-       playAud();
-  }
+function audioEndEventListnerFn (){
+          cnt++;
+          if (cnt===audios.length){
+                cnt=0;
+                totPlaycnt++;
+                if (totPlaycnt>50) {
+                totPlaycnt=0;
+                }else {
+                playAud();
+                }
+          }else { playAud();    }
+
+
+
+}
 
   // var sound      = document.createElement('audio');
   // sound.id       = 'audio-player';
