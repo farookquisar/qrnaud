@@ -74,7 +74,13 @@
   document.getElementById(surahId).addEventListener("change", xEventListner);
   document.getElementById(surahId).addEventListener("focus", xEventListner);
   document.getElementById(surahId).addEventListener("keyup", xEventListner);
-  //
+//   input.addEventListener("keyup", function(event) {
+//   if (event.keyCode === 13) {
+//    event.preventDefault();
+//    document.getElementById("myBtn").click();
+//   }
+// });
+  //Select List
   document.getElementById(reciterNameId).addEventListener("change", xEventListner);
   //reciterName=document.getElementById(reciterNameId).value ;
 
@@ -209,6 +215,11 @@ curEventType=event.type;
 
   if (event.type=="keyup"){
       stopAudio();
+
+      if (event.keyCode === 13) {
+       event.preventDefault();
+       document.getElementById(playBtnId).click();
+      }
       /*enableDisableBut();
 
       var ayaToVal = document.getElementById(ayaToId).value;
@@ -339,7 +350,7 @@ function chkAyaToAndAyaFrm() {
 
 
     function playAud(){
-    audios[cnt].load();
+    //audios[cnt].load();
     audios[cnt].play();
     playTrck=cnt;
 
