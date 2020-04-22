@@ -375,7 +375,7 @@ function audioEndEventListnerFn (){
           if (cnt===audios.length){
                 cnt=0;
                 totPlaycnt++;
-                if (totPlaycnt>50) {
+                if (totPlaycnt>50) { 
                 totPlaycnt=0;
                 }else {
                 playAud();
