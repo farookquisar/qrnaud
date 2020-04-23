@@ -255,7 +255,7 @@ curEventType=event.type;
 */
   if (event.type=="click"){
 
-        if (curEventTriggerId==="playBtn" && lastEventTriggerId!==curEventTriggerId){  
+        if (curEventTriggerId==="playBtn" && lastEventTriggerId!==curEventTriggerId){
         playAudioNew();
         }else if (curEventTriggerId==="pauseBtn"){
         stopAudio();
@@ -393,7 +393,7 @@ function audioEndEventListnerFn (){
           if (cnt===audios.length){
                 cnt=0;
                 totPlaycnt++;
-                if (totPlaycnt>50) {
+                if (totPlaycnt>2) {
                 totPlaycnt=0;
                 }else {
                 playAud();
