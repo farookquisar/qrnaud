@@ -353,10 +353,8 @@ function chkAyaToAndAyaFrm() {
 
     if (goodToGo){
     getFormInputs();
-    if (reLoadReq){
     resetPlayVals();
     prepareMediaSrc();
-    }
     playAud();
     getFocus(pauseBtnId);
     reLoadReq=false;
@@ -510,11 +508,11 @@ function audioEndEventListnerFn (){
 
 
   function validateFromVals(){
-  if (isPlaying("T")) {
+  if (  (isPlaying("T")) ||  (!reLoadReq)   ){
    goodToGo=false;
- }else {
-manageErrMsg();
- }
+   }else {
+   manageErrMsg();
+  }
 
 
 
