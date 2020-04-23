@@ -255,7 +255,7 @@ curEventType=event.type;
 */
   if (event.type=="click"){
 
-        if (curEventTriggerId==="playBtn"){
+        if (curEventTriggerId==="playBtn" && lastEventTriggerId!==curEventTriggerId){  
         playAudioNew();
         }else if (curEventTriggerId==="pauseBtn"){
         stopAudio();
@@ -429,7 +429,7 @@ function audioEndEventListnerFn (){
     newAudio.src=currentFile1+reciterName+"/"+vSurPad+vAyaPad+audFileExt;
     audios.push(newAudio);
     audioAyas.push(vSurah+":"+i);
-    newAudio.load();
+    //newAudio.load();
 
 
 
