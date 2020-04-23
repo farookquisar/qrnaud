@@ -154,7 +154,7 @@ curEventType=event.type;
 */
 
   if (event.type=="change"){
-
+    reLoadReq=true;
     if (curEventTriggerId===reciterNameId){
        stopAudio();
     }
@@ -224,6 +224,7 @@ curEventType=event.type;
 
   if (event.type=="keyup"){
       stopAudio();
+      reLoadReq=true;
 
       if (event.keyCode === 13) {
        event.preventDefault();
@@ -352,10 +353,13 @@ function chkAyaToAndAyaFrm() {
 
     if (goodToGo){
     getFormInputs();
+    if (reLoadReq){
     resetPlayVals();
     prepareMediaSrc();
+    }
     playAud();
     getFocus(pauseBtnId);
+    reLoadReq=false;
     //enableDisableBut();
     }
     // console.log(audAyaTxtArb.length);
@@ -439,13 +443,14 @@ function audioEndEventListnerFn (){
 
     vAyaPad=(i+"").padStart(3,'0');
     newAudio.src=currentFile1+reciterName+"/"+vSurPad+vAyaPad+audFileExt;
+    newAudio.load();
     audios.push(newAudio);
     audioAyas.push(vSurah+":"+i);
     //audAyaTxtArb.push(getAyaTxtInArb(txtInArb));
     //getAyaTxtInArb(vSurah,i);
 
 
-    //newAudio.load();
+
 
 
 
