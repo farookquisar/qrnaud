@@ -35,6 +35,7 @@
   var totPlaycnt=0;
 
 
+
   const reciterNameId ="reciterList";
   var playTrck= 0;
   var gProceedFlag=false;
@@ -49,6 +50,7 @@
 
   var audios = [];
   var audioAyas=[];
+  //var audAyaTxtArb=[];
   var cnt=0;
   var vAyaPad;
   //var oAudio;
@@ -140,7 +142,7 @@ curEventType=event.type;
       //       }
       // }
 
-      event.target.value="";
+      //event.target.value=event.target.value;
       //enableDisableBut();
 
   }
@@ -343,6 +345,8 @@ function chkAyaToAndAyaFrm() {
 
   function playAudioNew() {
 
+
+
     validateFromVals();
 
 
@@ -354,6 +358,10 @@ function chkAyaToAndAyaFrm() {
     getFocus(pauseBtnId);
     //enableDisableBut();
     }
+    // console.log(audAyaTxtArb.length);
+    // for (var i = 0; i < audAyaTxtArb.length; i++) {
+    //   console.log(array[i]);
+    // }
 
   }
 
@@ -384,6 +392,7 @@ function chkAyaToAndAyaFrm() {
          //showUserMsg(cStatePlaying,"Playing");
     // };
     audios[playTrck].onplaying = function() {
+      //showUserMsg(cStatePlaying, audAyaTxtArb[playTrck] );
         //showUserMsg(cStatePlaying, audioAyas[playTrck]+" ("+audios[playTrck].duration.toFixed(2)+" Sec)");
         showUserMsg(cStatePlaying, audioAyas[playTrck]+" ("+ formatSecondsAsTime (audios[playTrck].duration.toFixed(2))+")");
 
@@ -432,6 +441,10 @@ function audioEndEventListnerFn (){
     newAudio.src=currentFile1+reciterName+"/"+vSurPad+vAyaPad+audFileExt;
     audios.push(newAudio);
     audioAyas.push(vSurah+":"+i);
+    //audAyaTxtArb.push(getAyaTxtInArb(txtInArb));
+    //getAyaTxtInArb(vSurah,i);
+
+
     //newAudio.load();
 
 
@@ -509,6 +522,7 @@ manageErrMsg();
       newAudio=null;
       audios = [];
       audioAyas = [];
+      //audAyaTxtArb = [];
       cnt=0;
     }
 
@@ -613,6 +627,32 @@ vAyaFrm=document.getElementById(ayaFrmId).value;
                       getSurahVal
    *******************************************
 */
+
+function getAyaTxtInArb(pSurahNum,pAyaNum) {
+//   var xmlhttp = new XMLHttpRequest();
+//   xmlhttp.onreadystatechange = function() {
+//     if (this.readyState == 4 && this.status == 200) {
+//       var myObj = JSON.parse(this.responseText);
+//       audAyaTxtArb.push(myObj.ayah_text);
+//       //document.getElementById("demo").innerHTML = myObj.ayah_text;  }
+//   }
+//   xmlhttp.open("GET", "https://api.mp3quran.net/api/aya?surah="+pSurahNum+"&aya="+pAyaNum+"&language=en", true);
+//   xmlhttp.send();
+// }
+var url;
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var myObj = JSON.parse(this.responseText);
+    audAyaTxtArb.push(myObj.ayah_text);
+    //document.getElementById("demo").innerHTML = myObj.ayah_text;
+  }
+};
+url="https://api.mp3quran.net/api/aya?surah="+pSurahNum+"&aya="+pAyaNum+"&language=en";
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+}
 
 
 
@@ -721,7 +761,6 @@ function setReciterName() {
 
 function getFocus(focusItemId) {
   document.getElementById(focusItemId).focus();
-  console.log("focus");
 }
 
 /*
@@ -832,8 +871,9 @@ function showUserMsg(pState,pMsg) {
 
       }else if (pState==cStatePlaying) {
       document.getElementById("loadingmsg").innerHTML = "";
-      document.getElementById("playingNowMsg").innerHTML = pMsg;
       document.getElementById("errMsg").innerHTML = "";
+      //document.getElementById("qurReadArb").innerHTML = pMsg;
+      document.getElementById("playingNowMsg").innerHTML = pMsg;
 
 
       }

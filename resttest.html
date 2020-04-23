@@ -39,26 +39,28 @@
   </head>
 
   <body>
+
+    <h1>starts here</h1>
     <div id="root"></div>
     <!--script src="js/testrest.js"></script-->
     <script>
       const app = document.getElementById('root')
 
-      const logo = document.createElement('img')
-      logo.src = 'logo.png'
+      //const logo = document.createElement('img')
+      //logo.src = 'logo.png'
 
       const container = document.createElement('div')
       container.setAttribute('class', 'container')
 
-      app.appendChild(logo)
+      //app.appendChild(logo)
       app.appendChild(container)
 
       var request = new XMLHttpRequest()
-      request.open('GET', 'https://api.mp3quran.net/api/ayat?surah=1&from=1&to=2&language=en', true)
+      request.open('GET', 'http://api.mp3quran.net/api/aya?surah=1&aya=1&language=en', true)
       request.onload = function() {
       var data = JSON.parse(this.response)
       data.forEach(movie => {
-        console.log("");
+        console.log("tt");
         const card = document.createElement('div');
         card.setAttribute('class', 'card')
 
@@ -74,9 +76,11 @@
 
         container.appendChild(card);
         card.appendChild(h1);
+        card.appendChild(h2);
         card.appendChild(p);
       })
       }
+      request.send();
 
     /*  var request = new XMLHttpRequest()
       request.open('GET', 'https://ghibliapi.herokuapp.com/films', true)

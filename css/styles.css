@@ -3,6 +3,7 @@ body {
   text-align: center;
   background-color:#100e17;
   color: white;
+  font-family:"helvetica neue",Helvetica,Arial,sans-serif;
 }
 
 .container-fluid{
@@ -34,6 +35,8 @@ border-color:#1de9b6;
   background-color: #1de9b6;
   color: black;
 }
+
+
 .-dirPlayBtn{
   background-color: black;
   color: white;
@@ -45,11 +48,14 @@ border-color:#1de9b6;
 
 
 
+
 .-loadingMsg{
   color: #f6da63;
+  font-size: 1rem;
 }
 .-errorMsg{
   color: #f6da63;
+  font-size: 1rem;
 }
 .-playingNowMsg{
   color: #1de9b6;
@@ -73,7 +79,40 @@ background-color: #1de9b6;
 }
 
 
+/*
+   *********************************************************************************************************************************
+                                                              Quran Read
+   *********************************************************************************************************************************
+*/
+.qurReadSec{
+font-size: 1.5rem;
+}
 
+.cardQr {
+  margin: 1rem;
+  /* border: 1px solid gray; */
+   background-color: #F8F1E4 ;/*#FAF4E9; #F8F1E4*/
+  color:#040302;/* #613D21; #040302*/
+
+}
+
+@media screen and (min-width: 600px) {
+  .cardQr {
+    flex: 1 1 calc(50% - 2rem);
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .cardQr {
+    flex: 1 1 calc(33% - 2rem);
+  }
+}
+
+/*
+   *********************************************************************************************************************************
+                                                              Quran ReadE
+   *********************************************************************************************************************************
+*/
 
 
 .hr-warning{
