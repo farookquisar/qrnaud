@@ -226,6 +226,7 @@ curEventType=event.type;
       if (event.keyCode === 13) {
        event.preventDefault();
        document.getElementById(playBtnId).click();
+
       }
       /*enableDisableBut();
 
@@ -350,6 +351,7 @@ function chkAyaToAndAyaFrm() {
     resetPlayVals();
     prepareMediaSrc();
     playAud();
+    getFocus(pauseBtnId);
     //enableDisableBut();
     }
 
@@ -360,6 +362,7 @@ function chkAyaToAndAyaFrm() {
     //audios[cnt].load();
     audios[cnt].play();
     playTrck=cnt;
+
 
 
   // //  if (cnt===1){
@@ -716,7 +719,10 @@ function setReciterName() {
   reciterName=document.getElementById(reciterNameId).value ;
 }
 
-
+function getFocus(focusItemId) {
+  document.getElementById(focusItemId).focus();
+  console.log("focus");
+}
 
 /*
    *******************************************
@@ -830,7 +836,7 @@ function showUserMsg(pState,pMsg) {
       document.getElementById("errMsg").innerHTML = "";
 
 
-      } 
+      }
 
 }
 
