@@ -255,7 +255,7 @@ curEventType=event.type;
 */
   if (event.type=="click"){
 
-        if (curEventTriggerId==="playBtn" && lastEventTriggerId!==curEventTriggerId){
+        if (curEventTriggerId==="playBtn" ){
         playAudioNew();
         }else if (curEventTriggerId==="pauseBtn"){
         stopAudio();
@@ -393,7 +393,7 @@ function audioEndEventListnerFn (){
           if (cnt===audios.length){
                 cnt=0;
                 totPlaycnt++;
-                if (totPlaycnt>2) {
+                if (totPlaycnt>100) {
                 totPlaycnt=0;
                 }else {
                 playAud();
@@ -489,7 +489,12 @@ function audioEndEventListnerFn (){
 
 
   function validateFromVals(){
-  manageErrMsg();
+  if (isPlaying("T")) {
+   goodToGo=false;
+ }else {
+manageErrMsg();
+ }
+
 
 
 
