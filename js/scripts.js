@@ -2,7 +2,9 @@
 //initVals();
 //
 //function initVals(){
-  var currentFile1 = "http://everyayah.com/data/"; //Global variable to track current file
+  //var currentFile1 = "http://everyayah.com/data/"; //Global variable to track current file
+  var currentFile1 = "https://cdnverse.mp3quran.net/data/"; //Global variable to track current file
+  //https://cdnverse.mp3quran.net/data/Alafasy_128kbps/
   var reciterName = ""; //Global variable to track current file
   var audFileExt = ".mp3"; //Global variable to track current file
   var currentFile ="";
@@ -111,6 +113,11 @@
 
 
 function xEventListner(event) {
+
+
+
+
+
 lastEventTriggerId=curEventTriggerId;
 lastTriggerItemVal=curTriggerItemVal;
 lastEventType=curEventType;
