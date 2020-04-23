@@ -444,7 +444,7 @@ function audioEndEventListnerFn (){
 
     vAyaPad=(i+"").padStart(3,'0');
     newAudio.src=currentFile1+reciterName+"/"+vSurPad+vAyaPad+audFileExt;
-    //newAudio.load();
+    newAudio.load();
     audios.push(newAudio);
     audioAyas.push(vSurah+":"+i);
     //audAyaTxtArb.push(getAyaTxtInArb(txtInArb));
@@ -478,6 +478,7 @@ function audioEndEventListnerFn (){
     //newAudio.controls = 'controls';
     //document.getElementById('audPlayerDiv').appendChild(newAudio);
     newAudio.src=currentFile;
+    newAudio.load();
     audios.push(newAudio);
     audioAyas.push(vSurPad);
   }
