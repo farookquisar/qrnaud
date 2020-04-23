@@ -352,12 +352,15 @@ function chkAyaToAndAyaFrm() {
 
 
     if (goodToGo){
+    if (reLoadReq){
     getFormInputs();
     resetPlayVals();
     prepareMediaSrc();
+    reLoadReq=false;
+    }
     playAud();
     getFocus(pauseBtnId);
-    reLoadReq=false;
+
     //enableDisableBut();
     }
     // console.log(audAyaTxtArb.length);
@@ -441,7 +444,7 @@ function audioEndEventListnerFn (){
 
     vAyaPad=(i+"").padStart(3,'0');
     newAudio.src=currentFile1+reciterName+"/"+vSurPad+vAyaPad+audFileExt;
-    newAudio.load();
+    //newAudio.load();
     audios.push(newAudio);
     audioAyas.push(vSurah+":"+i);
     //audAyaTxtArb.push(getAyaTxtInArb(txtInArb));
@@ -508,11 +511,11 @@ function audioEndEventListnerFn (){
 
 
   function validateFromVals(){
-  if (  (isPlaying("T")) ||  (!reLoadReq)   ){
+  if (isPlaying("T")) {
    goodToGo=false;
-   }else {
-   manageErrMsg();
-  }
+ }else {
+manageErrMsg();
+ }
 
 
 
