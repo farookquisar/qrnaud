@@ -830,7 +830,7 @@ function showUserMsg(pState,pMsg) {
       document.getElementById("errMsg").innerHTML = "";
 
 
-      }
+      } 
 
 }
 
