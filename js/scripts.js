@@ -577,6 +577,7 @@ function prevAya() {
    seekBackward();
 
 
+
 }
 
 function seekBackward() {
@@ -585,8 +586,10 @@ function seekBackward() {
        stopAudio();
        setAyaToVal (parseInt(vAyaTo)-1);// document.getElementById(ayaFrmId).value=parseInt(vAyaFrm)-1;
        //document.getElementById(ayaToId).value=parseInt(vAyaFrm)-1;
+       reLoadReq=true;
        playAudioNew();
   }
+
 }
 
 function seekForward() {
@@ -594,8 +597,10 @@ function seekForward() {
        stopAudio();
        setAyaToVal (parseInt(vAyaTo)+1);// document.getElementById(ayaFrmId).value=parseInt(vAyaFrm)-1;
        //document.getElementById(ayaToId).value=parseInt(vAyaFrm)-1;
+       reLoadReq=true;
        playAudioNew();
   }
+
 }
 
 
@@ -674,6 +679,7 @@ function playAyaKursi() {
   document.getElementById(surahId).value=2;
   document.getElementById(ayaToId).value=255;
   document.getElementById(ayaFrmId).value=255;
+  reLoadReq=true;
   playAudioNew();
 }
 
@@ -682,6 +688,7 @@ function playMulk() {
   document.getElementById(surahId).value=67;
   document.getElementById(ayaToId).value="";
   document.getElementById(ayaFrmId).value="";
+  reLoadReq=true;
   // setSurahVal(67) ;
   // setAyaFrmVal("1");
   // setAyaToVal("30");
@@ -693,6 +700,7 @@ function playKahf() {
   document.getElementById(surahId).value=18;
   document.getElementById(ayaToId).value="";
   document.getElementById(ayaFrmId).value="";
+  reLoadReq=true;
   playAudioNew();
 }
 
@@ -701,6 +709,7 @@ function playSajada() {
   document.getElementById(surahId).value=32;
   document.getElementById(ayaToId).value="";
   document.getElementById(ayaFrmId).value="";
+  reLoadReq=true;
   playAudioNew();
 }
 
