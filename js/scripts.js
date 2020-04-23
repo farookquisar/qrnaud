@@ -817,7 +817,7 @@ function showUserMsg(pState,pMsg) {
       if (pState==cStateErr) {
       document.getElementById("loadingmsg").innerHTML = "";
       document.getElementById("playingNowMsg").innerHTML = "";
-      document.getElementById("errMsg").innerHTML = "Error! "+pMsg;
+      document.getElementById("errMsg").innerHTML = ""+pMsg;
 
       }else if (pState==cStateLoading) {
       document.getElementById("loadingmsg").innerHTML = pMsg;
