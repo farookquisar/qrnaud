@@ -2,9 +2,7 @@
 //initVals();
 //
 //function initVals(){
-  //var currentFile1 = "http://everyayah.com/data/"; //Global variable to track current file
-  var currentFile1 = "https://cdnverse.mp3quran.net/data/"; //Global variable to track current file
-  //https://cdnverse.mp3quran.net/data/Alafasy_128kbps/
+  var currentFile1 = "http://everyayah.com/data/"; //Global variable to track current file
   var reciterName = ""; //Global variable to track current file
   var audFileExt = ".mp3"; //Global variable to track current file
   var currentFile ="";
@@ -32,9 +30,6 @@
   const surahMulkId="surahMulk";
   const surahSajadaId="surahSajada";
   const surahKahfId ="surahKahf";
-  var totPlaycnt=0;
-
-
 
   const reciterNameId ="reciterList";
   var playTrck= 0;
@@ -49,8 +44,6 @@
   var curEventType="";
 
   var audios = [];
-  var audioAyas=[];
-  //var audAyaTxtArb=[];
   var cnt=0;
   var vAyaPad;
   //var oAudio;
@@ -58,6 +51,7 @@
   var isCurPlaying=false;
   goodToGo=true;
 
+//console.log(ayaKursiId);
 //All Buttons
   document.getElementById(playBtnId).addEventListener("click", xEventListner);
   document.getElementById(pauseBtnId).addEventListener("click", xEventListner);
@@ -78,48 +72,13 @@
   document.getElementById(surahId).addEventListener("change", xEventListner);
   document.getElementById(surahId).addEventListener("focus", xEventListner);
   document.getElementById(surahId).addEventListener("keyup", xEventListner);
-//   input.addEventListener("keyup", function(event) {
-//   if (event.keyCode === 13) {
-//    event.preventDefault();
-//    document.getElementById("myBtn").click();
-//   }
-// });
-  //Select List
+  //
   document.getElementById(reciterNameId).addEventListener("change", xEventListner);
   //reciterName=document.getElementById(reciterNameId).value ;
 
 
-//   var audio = document.createElement('audio');
-//   audio.setAttribute('controls', 'controls');
-//
-//   var ogg = document.createElement('source');
-//   ogg.setAttribute('src', 'http://everyayah.com/data/Alafasy_128kbps/001001.mp3');
-//   ogg.setAttribute('type', 'audio/mp3');
-//
-//   var mp3 = document.createElement('source');
-//   mp3.setAttribute('src', 'http://everyayah.com/data/Alafasy_128kbps/001002.mp3');
-//   mp3.setAttribute('type', 'audio/mp3');
-//
-//   audio.appendChild(ogg);
-//   audio.appendChild(mp3);
-// audio.load();
-// //audio.play();
-// var sound      = document.createElement('audio');
-// sound.id       = 'audio-player';
-// sound.controls = 'controls';
-// sound.src      = 'http://everyayah.com/data/Alafasy_128kbps/001002.mp3';
-// sound.type     = 'audio/mpeg';
-// document.getElementById('song').appendChild(sound);
-
-
-
 
 function xEventListner(event) {
-
-
-
-
-
 lastEventTriggerId=curEventTriggerId;
 lastTriggerItemVal=curTriggerItemVal;
 lastEventType=curEventType;
@@ -127,7 +86,16 @@ lastEventType=curEventType;
 curEventTriggerId=event.target.id;
 curTriggerItemVal=event.target.value;
 curEventType=event.type;
+// console.log("xEventListner starts");
+// console.log("lastEventTriggerId:"+lastEventTriggerId);
+// console.log("lastTriggerItemVal:"+lastTriggerItemVal);
+// console.log("lastEventType:"+lastEventType);
+// console.log("curEventTriggerId:"+curEventTriggerId);
+// console.log("curTriggerItemVal:"+curTriggerItemVal);
+// console.log("curEventType:"+curEventType);
 
+//console.log("item val: "+event.target.value);
+//console.log("item id: "+event.target.id);
   /*
    *********************************************************************************************************************************
                                                               focus Event
@@ -138,12 +106,14 @@ curEventType=event.type;
       // if (curEventTriggerId==surahId){
       //       if (curTriggerItemVal ){
       //       enableDisableBut();
+      //       console.log("from focus has val: "+event.target.value);
       //       }else {
+      //       console.log("from focus No val");
       //       }
       // }
 
-      //event.target.value=event.target.value;
-      //enableDisableBut();
+      event.target.value="";
+      enableDisableBut();
 
   }
 
@@ -154,7 +124,9 @@ curEventType=event.type;
 */
 
   if (event.type=="change"){
-    reLoadReq=true;
+
+    console.log("change: "+curEventTriggerId);
+    console.log("change: "+reciterNameId);
     if (curEventTriggerId===reciterNameId){
        stopAudio();
     }
@@ -224,31 +196,19 @@ curEventType=event.type;
 
   if (event.type=="keyup"){
       stopAudio();
-      reLoadReq=true;
-
-      if (event.keyCode === 13) {
-       event.preventDefault();
-       document.getElementById(playBtnId).click();
-
-      }
-      /*enableDisableBut();
+      enableDisableBut();
 
       var ayaToVal = document.getElementById(ayaToId).value;
       var ayaFrmVal = document.getElementById(ayaFrmId).value;
-
-      if  ((curEventTriggerId===ayaFrmId) && (!ayaToVal) ||  ayaToVal< ayaFrmVal ){
-      setAyaToVal(ayaFrmVal);
-    }*/
-
-      /*var ayaToVal = document.getElementById(ayaToId).value;
-      var ayaFrmVal = document.getElementById(ayaFrmId).value;
-      if ( ((curEventTriggerId===ayaFrmId) && (!ayaToVal))  ||  (lastEventTriggerId===ayaFrmId && lastTriggerItemVal===ayaToVal && lastEventType===")  ) {  //(  (!ayaToVal) || (ayaToVal===ayaFrmVal) )){
+      if ( ((curEventTriggerId===ayaFrmId) && (!ayaToVal))  ||  (lastEventTriggerId===ayaFrmId && lastTriggerItemVal===ayaToVal && lastEventType==="keyup")  ) {  //(  (!ayaToVal) || (ayaToVal===ayaFrmVal) )){
+        console.log("else curEventTriggerId:"+curEventTriggerId+" ayaToId:"+ayaToId+" lastEventTriggerId:"+lastEventTriggerId+" ayaFrmId:"+ayaFrmId+" lastTriggerItemVal:"+lastTriggerItemVal+" ayaToVal:"+ayaToVal);
       document.getElementById(ayaToId).value=curTriggerItemVal;
     }else if (    (curEventTriggerId===ayaToId && (!ayaFrmVal ))      ||  (lastEventTriggerId===ayaToId && lastTriggerItemVal===ayaFrmVal && lastEventType==="keyup")  ) {
+      console.log("else curEventTriggerId:"+curEventTriggerId+" ayaToId:"+ayaToId+" lastEventTriggerId:"+lastEventTriggerId+" ayaToId:"+ayaToId+" lastTriggerItemVal:"+lastTriggerItemVal+" ayaFrmVal:"+ayaFrmVal);
       document.getElementById(ayaFrmId).value=curTriggerItemVal;
       }
 
-*/
+
 
   }
 
@@ -258,8 +218,9 @@ curEventType=event.type;
    *********************************************************************************************************************************
 */
   if (event.type=="click"){
+    console.log("click event handler");
 
-        if (curEventTriggerId==="playBtn" ){
+        if (curEventTriggerId==="playBtn"){
         playAudioNew();
         }else if (curEventTriggerId==="pauseBtn"){
         stopAudio();
@@ -305,38 +266,12 @@ function getFormInputs() {
   //reciterName=document.getElementById(reciterNameId).value ;
   setReciterName("");
 
-  //ChkAyaToAndAyaFrm
-  chkAyaToAndAyaFrm();
+
+
 
 }
 
-/*
- *********************************************************************************************************************************
-                                                            xEventListner End
- *********************************************************************************************************************************
-*/
 
-function chkAyaToAndAyaFrm() {
-      var locAyahFrm =document.getElementById(ayaFrmId).value;
-      var locAyahTo =document.getElementById(ayaToId).value;
-      var tmpSwap;
-
-      if (locAyahFrm || locAyahTo){
-              if (!locAyahFrm){
-              setAyaFrmVal(locAyahTo);
-              }else if (!locAyahTo) {
-              setAyaToVal(locAyahFrm);
-              }else if (locAyahFrm>locAyahTo) {
-              setAyaFrmVal(locAyahTo);
-              setAyaToVal(locAyahFrm);
-              }else if (locAyahTo<locAyahFrm) {
-              setAyaFrmVal(locAyahTo);
-              setAyaToVal(locAyahFrm);
-              }
-
-      }
-
-}
 
   /*
      *******************************************
@@ -346,51 +281,24 @@ function chkAyaToAndAyaFrm() {
 
   function playAudioNew() {
 
-
-
     validateFromVals();
 
 
     if (goodToGo){
-    if (reLoadReq){
     getFormInputs();
     resetPlayVals();
     prepareMediaSrc();
-    reLoadReq=false;
-    }
     playAud();
-    getFocus(pauseBtnId);
-
-    //enableDisableBut();
+    enableDisableBut();
     }
-    // console.log(audAyaTxtArb.length);
-    // for (var i = 0; i < audAyaTxtArb.length; i++) {
-    //   console.log(array[i]);
-    // }
 
   }
 
 
     function playAud(){
-    //audios[cnt].load();
+
     audios[cnt].play();
     playTrck=cnt;
-
-    if (reLoadReq) {
-    var loopcnt=playTrck+1;
-    for (loopcnt ; loopcnt < audios.length; loopcnt++) {
-      audios[loopcnt].load();
-    }}
-
-
-
-  // //  if (cnt===1){
-  //   if (cnt>0) {
-  //   document.getElementById('song').removeChild(audios[cnt-1]) ;
-  //   }
-  //   document.getElementById('song').appendChild(audios[cnt]) ;
-  //   //}
-
     //document.getElementById("loadingmsg").innerHTML = audios[cnt].src+"";
     audios[playTrck].onerror = function() {
         showUserMsg(cStateErr,"Please check Surah And Aya Number");
@@ -399,65 +307,40 @@ function chkAyaToAndAyaFrm() {
         showUserMsg(cStateLoading,"Loading...");
     };
 
-    // audios[playTrck].onplay = function() {
-         //showUserMsg(cStatePlaying,"Playing");
-    // };
+    audios[playTrck].onloadeddata = function() {
+        showUserMsg(cStateErr,"Playing");
+    };
     audios[playTrck].onplaying = function() {
-      //showUserMsg(cStatePlaying, audAyaTxtArb[playTrck] );
-        //showUserMsg(cStatePlaying, audioAyas[playTrck]+" ("+audios[playTrck].duration.toFixed(2)+" Sec)");
-        showUserMsg(cStatePlaying, audioAyas[playTrck]+" ("+ formatSecondsAsTime (audios[playTrck].duration.toFixed(2))+")");
-
+        showUserMsg(cStatePlaying,vSurah+"");
     };
 
     }
 
-function audioEndEventListnerFn (){
-          cnt++;
-          if (cnt===audios.length){
-                cnt=0;
-                totPlaycnt++;
-                if (totPlaycnt>50) {
-                totPlaycnt=0;
-                }else {
-                playAud();
-                }
-          }else { playAud();    }
+  function audioEndEventListnerFn (){
+    cnt++;
+    if (cnt===audios.length){
+      cnt=0;
+    }
+       playAud();
+  }
 
 
-
-}
-
-  // var sound      = document.createElement('audio');
-  // sound.id       = 'audio-player';
-  // sound.controls = 'controls';
-  // sound.src      = 'http://everyayah.com/data/Alafasy_128kbps/001002.mp3';
-  // sound.type     = 'audio/mpeg';
-  // document.getElementById('song').appendChild(sound);
   function prepareMediaSrc(){
     if(newAudio === null ) {
 
       if (vAyaFrm || vAyaTo) {//Aya Play
       for (var i = vAyaFrm; i <= vAyaTo; i++) {
      newAudio = document.createElement("audio");
-     newAudio.controls = 'controls';
+     newAudio.setAttribute("id", "QurAudio1");
+     newAudio.setAttribute('controls', 'controls');
 
-     //newAudio.setAttribute("id", "QurAudio1");
-     //newAudio.setAttribute('controls', 'controls');
-     //audio.appendChild(ogg);
      newAudio.addEventListener("ended", audioEndEventListnerFn
     );
 
 
     vAyaPad=(i+"").padStart(3,'0');
     newAudio.src=currentFile1+reciterName+"/"+vSurPad+vAyaPad+audFileExt;
-    //newAudio.load();
     audios.push(newAudio);
-    audioAyas.push(vSurah+":"+i);
-    //audAyaTxtArb.push(getAyaTxtInArb(txtInArb));
-    //getAyaTxtInArb(vSurah,i);
-
-
-
 
 
 
@@ -481,12 +364,8 @@ function audioEndEventListnerFn (){
     currentFile="https://media.blubrry.com/muslim_central_quran/podcasts.qurancentral.com/saud-al-shuraim/saud-al-shuraim-"+vSurPad+".mp3";
     }
     newAudio = document.createElement("audio");
-    //newAudio.controls = 'controls';
-    //document.getElementById('audPlayerDiv').appendChild(newAudio);
     newAudio.src=currentFile;
-    //newAudio.load();
     audios.push(newAudio);
-    audioAyas.push(vSurPad);
   }
 
 
@@ -500,30 +379,8 @@ function audioEndEventListnerFn (){
   }
 
 
-
-  function formatSecondsAsTime(secs, format) {
-    var hr  = Math.floor(secs / 3600);
-    var min = Math.floor((secs - (hr * 3600))/60);
-    var sec = Math.floor(secs - (hr * 3600) -  (min * 60));
-
-    if (min < 10){
-      min = "0" + min;
-    }
-    if (sec < 10){
-      sec  = "0" + sec;
-    }
-
-    return hr + ':' + min + ':' + sec;
-  }
-
-
   function validateFromVals(){
-  if (isPlaying("T")) {
-   goodToGo=false;
- }else {
-manageErrMsg();
- }
-
+  manageErrMsg();
 
 
 
@@ -534,8 +391,6 @@ manageErrMsg();
     if (!(lastEventTriggerId===pauseBtnId && curEventTriggerId===playBtnId)) {
       newAudio=null;
       audios = [];
-      audioAyas = [];
-      //audAyaTxtArb = [];
       cnt=0;
     }
 
@@ -553,7 +408,7 @@ manageErrMsg();
       audios[playTrck].pause();
     }
 
-      //enableDisableBut();
+      enableDisableBut();
 
 
 
@@ -584,7 +439,6 @@ function prevAya() {
    seekBackward();
 
 
-
 }
 
 function seekBackward() {
@@ -593,10 +447,8 @@ function seekBackward() {
        stopAudio();
        setAyaToVal (parseInt(vAyaTo)-1);// document.getElementById(ayaFrmId).value=parseInt(vAyaFrm)-1;
        //document.getElementById(ayaToId).value=parseInt(vAyaFrm)-1;
-       reLoadReq=true;
        playAudioNew();
   }
-
 }
 
 function seekForward() {
@@ -604,10 +456,8 @@ function seekForward() {
        stopAudio();
        setAyaToVal (parseInt(vAyaTo)+1);// document.getElementById(ayaFrmId).value=parseInt(vAyaFrm)-1;
        //document.getElementById(ayaToId).value=parseInt(vAyaFrm)-1;
-       reLoadReq=true;
        playAudioNew();
   }
-
 }
 
 
@@ -646,35 +496,28 @@ vAyaFrm=document.getElementById(ayaFrmId).value;
    *******************************************
 */
 
-function getAyaTxtInArb(pSurahNum,pAyaNum) {
-//   var xmlhttp = new XMLHttpRequest();
-//   xmlhttp.onreadystatechange = function() {
-//     if (this.readyState == 4 && this.status == 200) {
-//       var myObj = JSON.parse(this.responseText);
-//       audAyaTxtArb.push(myObj.ayah_text);
-//       //document.getElementById("demo").innerHTML = myObj.ayah_text;  }
-//   }
-//   xmlhttp.open("GET", "https://api.mp3quran.net/api/aya?surah="+pSurahNum+"&aya="+pAyaNum+"&language=en", true);
-//   xmlhttp.send();
-// }
-var url;
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    var myObj = JSON.parse(this.responseText);
-    audAyaTxtArb.push(myObj.ayah_text);
-    //document.getElementById("demo").innerHTML = myObj.ayah_text;
-  }
-};
-url="https://api.mp3quran.net/api/aya?surah="+pSurahNum+"&aya="+pAyaNum+"&language=en";
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
+
+
+/*
+   *******************************************
+                      chkVals
+   *******************************************
+*/
+
+function chkVals() {
+getSurahVal();
+
+if (vSurah == "") {
+hasFilled = false ;
+}else {
+  hasFilled = true ;
+}
+  hasFilled ? (document.getElementById("playBtn").disabled = false) : (document.getElementById("playBtn").disabled = true);
+
+
+
 
 }
-
-
-
-
 
 /*
    *******************************************
@@ -683,40 +526,33 @@ xmlhttp.send();
 */
 function playAyaKursi() {
   stopAudio();
-  document.getElementById(surahId).value=2;
-  document.getElementById(ayaToId).value=255;
-  document.getElementById(ayaFrmId).value=255;
-  reLoadReq=true;
+  setSurahVal(2) ;
+  setAyaFrmVal(255);
+  setAyaToVal(255);
   playAudioNew();
 }
 
 function playMulk() {
   stopAudio();
-  document.getElementById(surahId).value=67;
-  document.getElementById(ayaToId).value="";
-  document.getElementById(ayaFrmId).value="";
-  reLoadReq=true;
-  // setSurahVal(67) ;
-  // setAyaFrmVal("1");
-  // setAyaToVal("30");
+  setSurahVal(67) ;
+  setAyaFrmVal("1");
+  setAyaToVal("30");
   playAudioNew();
 }
 
 function playKahf() {
   stopAudio();
-  document.getElementById(surahId).value=18;
-  document.getElementById(ayaToId).value="";
-  document.getElementById(ayaFrmId).value="";
-  reLoadReq=true;
+  setSurahVal(18) ;
+  setAyaFrmVal("1");
+  setAyaToVal("110");
   playAudioNew();
 }
 
 function playSajada() {
   stopAudio();
-  document.getElementById(surahId).value=32;
-  document.getElementById(ayaToId).value="";
-  document.getElementById(ayaFrmId).value="";
-  reLoadReq=true;
+  setSurahVal(32) ;
+  setAyaFrmVal("1");
+  setAyaToVal("30");
   playAudioNew();
 }
 
@@ -737,12 +573,12 @@ function setSurahVal(pVal) {
 function setAyaFrmVal(pVal) {
   var locAyaFrmVal;
 
-  // var locAyahFrm =document.getElementById(ayaFrmId).value;
-  // var locAyahTo =document.getElementById(ayaToId).value;
-  // if (locAyahFrm && locAyahTo && locAyahTo<locAyahFrm){
-  // document.getElementById(ayaFrmId).value=locAyahTo;
-  // document.getElementById(ayaToId).value=locAyahFrm;
-  // }
+  var locAyahFrm =document.getElementById(ayaFrmId).value;
+  var locAyahTo =document.getElementById(ayaToId).value;
+  if (locAyahFrm && locAyahTo && locAyahTo<locAyahFrm){
+  document.getElementById(ayaFrmId).value=locAyahTo;
+  document.getElementById(ayaToId).value=locAyahFrm;
+  }
 
   if (!pVal) {
   locAyaFrmVal=document.getElementById(ayaFrmId).value;
@@ -757,12 +593,12 @@ function setAyaFrmVal(pVal) {
 //setAyaToVal
 function setAyaToVal(pVal) {
   var locAyaToVal;
-  // var locAyahFrm =document.getElementById(ayaFrmId).value;
-  // var locAyahTo =document.getElementById(ayaToId).value;
-  // if (locAyahFrm && locAyahTo && locAyahTo<locAyahFrm){
-  // document.getElementById(ayaFrmId).value=locAyahTo;
-  // document.getElementById(ayaToId).value=locAyahFrm;
-  // }
+  var locAyahFrm =document.getElementById(ayaFrmId).value;
+  var locAyahTo =document.getElementById(ayaToId).value;
+  if (locAyahFrm && locAyahTo && locAyahTo<locAyahFrm){
+  document.getElementById(ayaFrmId).value=locAyahTo;
+  document.getElementById(ayaToId).value=locAyahFrm;
+  }
 
 
 
@@ -781,9 +617,7 @@ function setReciterName() {
   reciterName=document.getElementById(reciterNameId).value ;
 }
 
-function getFocus(focusItemId) {
-  document.getElementById(focusItemId).focus();
-}
+
 
 /*
    *******************************************
@@ -844,7 +678,7 @@ function manageErrMsg(){
 */
 
 
-function enableDisableButBkp(){
+function enableDisableBut(){
       if (isPlaying() ) {//Make Play button active when already not playing
       document.getElementById("pauseBtn").disabled = false;
       document.getElementById("playBtn").disabled = true;
@@ -884,7 +718,7 @@ function showUserMsg(pState,pMsg) {
       if (pState==cStateErr) {
       document.getElementById("loadingmsg").innerHTML = "";
       document.getElementById("playingNowMsg").innerHTML = "";
-      document.getElementById("errMsg").innerHTML = ""+pMsg;
+      document.getElementById("errMsg").innerHTML = "Error! "+pMsg;
 
       }else if (pState==cStateLoading) {
       document.getElementById("loadingmsg").innerHTML = pMsg;
@@ -893,9 +727,8 @@ function showUserMsg(pState,pMsg) {
 
       }else if (pState==cStatePlaying) {
       document.getElementById("loadingmsg").innerHTML = "";
-      document.getElementById("errMsg").innerHTML = "";
-      //document.getElementById("qurReadArb").innerHTML = pMsg;
       document.getElementById("playingNowMsg").innerHTML = pMsg;
+      document.getElementById("errMsg").innerHTML = "";
 
 
       }

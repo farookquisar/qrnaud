@@ -376,12 +376,6 @@ function chkAyaToAndAyaFrm() {
     audios[cnt].play();
     playTrck=cnt;
 
-    if (reLoadReq) {
-    var loopcnt=playTrck+1;
-    for (loopcnt ; loopcnt < audios.length; loopcnt++) {
-      audios[loopcnt].load();
-    }}
-
 
 
   // //  if (cnt===1){
@@ -416,7 +410,7 @@ function audioEndEventListnerFn (){
           if (cnt===audios.length){
                 cnt=0;
                 totPlaycnt++;
-                if (totPlaycnt>50) {
+                if (totPlaycnt>100) {
                 totPlaycnt=0;
                 }else {
                 playAud();
@@ -450,7 +444,7 @@ function audioEndEventListnerFn (){
 
     vAyaPad=(i+"").padStart(3,'0');
     newAudio.src=currentFile1+reciterName+"/"+vSurPad+vAyaPad+audFileExt;
-    //newAudio.load();
+    newAudio.load();
     audios.push(newAudio);
     audioAyas.push(vSurah+":"+i);
     //audAyaTxtArb.push(getAyaTxtInArb(txtInArb));
@@ -484,7 +478,7 @@ function audioEndEventListnerFn (){
     //newAudio.controls = 'controls';
     //document.getElementById('audPlayerDiv').appendChild(newAudio);
     newAudio.src=currentFile;
-    //newAudio.load();
+    newAudio.load();
     audios.push(newAudio);
     audioAyas.push(vSurPad);
   }
