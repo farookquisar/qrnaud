@@ -317,8 +317,8 @@ function getFormInputs() {
 */
 
 function chkAyaToAndAyaFrm() {
-      var locAyahFrm =document.getElementById(ayaFrmId).value;
-      var locAyahTo =document.getElementById(ayaToId).value;
+      var locAyahFrm =parseInt(document.getElementById(ayaFrmId).value);
+      var locAyahTo =parseInt(document.getElementById(ayaToId).value);
       var tmpSwap;
 
       if (locAyahFrm || locAyahTo){
