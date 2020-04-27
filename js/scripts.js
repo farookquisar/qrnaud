@@ -9,8 +9,8 @@
   var audFileExt = ".mp3"; //Global variable to track current file
   var currentFile ="";
   var vSurah ="";
-  var vAyaFrm ="";
-  var vAyaTo ="";
+  var vAyaFrm =0;
+  var vAyaTo =0;
   var vSurPad="";//vSurah.padStart(3,'0');
   var vAyaFrmPad="";//vAyaFrm.padStart(3,'0');
   var vAyaToPad="";//vAyaTo.padStart(3,'0');
@@ -135,6 +135,12 @@ curEventType=event.type;
 */
   if (event.type=="focus"){
 
+      if (event.target.value) {
+       event.target.value='';
+       reLoadReq=true;
+       stopAudio();
+      }
+
       // if (curEventTriggerId==surahId){
       //       if (curTriggerItemVal ){
       //       enableDisableBut();
@@ -159,60 +165,7 @@ curEventType=event.type;
        stopAudio();
     }
 
-    /*    //------------------------------------------Surah
-        if (event.target.id==surahId){
-        vSurah=event.target.value ;
-        vSurPad=(vSurah+"").padStart(3,'0');
 
-
-        //------------------------------------------Aya From
-        }else if (event.target.id==ayaFrmId){
-        vAyaFrm=event.target.value ;
-        vAyaTo=document.getElementById(ayaToId).value;
-        if (!vAyaTo){
-        document.getElementById(ayaToId).value=vAyaFrm;
-        vAyaTo=vAyaFrm;
-        vAyaToPad=(vAyaTo+"").padStart(3,'0');
-        }else if ( vAyaTo<vAyaFrm) {
-        tmpSwapNum=vAyaTo;
-        document.getElementById(ayaToId).value=vAyaFrm;
-        vAyaTo=vAyaFrm;
-        document.getElementById(ayaFrmId).value=tmpSwapNum;
-        vAyaFrm=tmpSwapNum;
-        vAyaToPad=(vAyaTo+"").padStart(3,'0');
-        }
-        vAyaFrmPad=(vAyaFrm+"").padStart(3,'0');
-
-
-        //------------------------------------------Aya To
-        }else if (event.target.id==ayaToId){
-        vAyaTo=event.target.value ;
-        vAyaFrm=document.getElementById(ayaFrmId).value;
-
-        if (!vAyaFrm){
-        document.getElementById(ayaFrmId).value=vAyaTo;
-        vAyaFrm=vAyaTo;
-        vAyaFrmPad=(vAyaFrm+"").padStart(3,'0');
-
-        }else if ( vAyaTo<vAyaFrm) {
-        tmpSwapNum=vAyaTo;
-        document.getElementById(ayaToId).value=vAyaFrm;
-        vAyaTo=vAyaFrm;
-        document.getElementById(ayaFrmId).value=tmpSwapNum;
-        vAyaFrm=tmpSwapNum;
-        vAyaFrmPad=(vAyaFrm+"").padStart(3,'0');
-        }
-
-
-        vAyaToPad=(vAyaTo+"").padStart(3,'0');
-        //------------------------------------------reciterNameId
-        }else if (event.target.id==reciterNameId){
-        reciterName=document.getElementById(reciterNameId).value ;
-        }
-
-        resetPlayVals();
-        stopAudio();
-        enableDisableBut();*/
 
   }
 
@@ -290,19 +243,10 @@ curEventType=event.type;
 } //xEventListner
 
 function getFormInputs() {
-  //vSurah=edocument.getElementById(surahId).value ;
-  //vSurPad=(vSurah+"").padStart(3,'0');
+
   setSurahVal("");
-
-  //vAyaFrm=document.getElementById(ayaFrmId).value ;
-  //vAyaFrmPad=(vAyaFrm+"").padStart(3,'0');
   setAyaFrmVal("");
-
-  //vAyaTo=document.getElementById(ayaToId).value;
-  //vAyaToPad=(vAyaTo+"").padStart(3,'0');
   setAyaToVal("");
-
-  //reciterName=document.getElementById(reciterNameId).value ;
   setReciterName("");
 
   //ChkAyaToAndAyaFrm
@@ -317,8 +261,8 @@ function getFormInputs() {
 */
 
 function chkAyaToAndAyaFrm() {
-      var locAyahFrm =parseInt(document.getElementById(ayaFrmId).value);
-      var locAyahTo =parseInt(document.getElementById(ayaToId).value);
+      var locAyahFrm =document.getElementById(ayaFrmId).value;
+      var locAyahTo =document.getElementById(ayaToId).value;
       var tmpSwap;
 
       if (locAyahFrm || locAyahTo){
@@ -326,10 +270,10 @@ function chkAyaToAndAyaFrm() {
               setAyaFrmVal(locAyahTo);
               }else if (!locAyahTo) {
               setAyaToVal(locAyahFrm);
-              }else if (locAyahFrm>locAyahTo) {
+            }else if (parseInt(locAyahFrm)>parseInt(locAyahTo)) {
               setAyaFrmVal(locAyahTo);
               setAyaToVal(locAyahFrm);
-              }else if (locAyahTo<locAyahFrm) {
+            }else if (parseInt(locAyahTo)<parseInt(locAyahFrm)) {
               setAyaFrmVal(locAyahTo);
               setAyaToVal(locAyahFrm);
               }
@@ -729,7 +673,7 @@ function setSurahVal(pVal) {
 
 //setAyaFrmVal
 function setAyaFrmVal(pVal) {
-  var locAyaFrmVal;
+  var locAyaFrmVal=0;
 
   // var locAyahFrm =document.getElementById(ayaFrmId).value;
   // var locAyahTo =document.getElementById(ayaToId).value;
@@ -739,9 +683,9 @@ function setAyaFrmVal(pVal) {
   // }
 
   if (!pVal) {
-  locAyaFrmVal=document.getElementById(ayaFrmId).value;
+  locAyaFrmVal=parseInt(document.getElementById(ayaFrmId).value);
 }else {
-  locAyaFrmVal=pVal;
+  locAyaFrmVal=parseInt(pVal);
 }
   document.getElementById(ayaFrmId).value=locAyaFrmVal ;
   vAyaFrm=locAyaFrmVal;
@@ -750,7 +694,7 @@ function setAyaFrmVal(pVal) {
 
 //setAyaToVal
 function setAyaToVal(pVal) {
-  var locAyaToVal;
+  var locAyaToVal=0;
   // var locAyahFrm =document.getElementById(ayaFrmId).value;
   // var locAyahTo =document.getElementById(ayaToId).value;
   // if (locAyahFrm && locAyahTo && locAyahTo<locAyahFrm){
@@ -761,9 +705,9 @@ function setAyaToVal(pVal) {
 
 
   if (!pVal) {
-  locAyaToVal=document.getElementById(ayaToId).value;
+  locAyaToVal=parseInt(document.getElementById(ayaToId).value);
   }else {
-    locAyaToVal=pVal;
+    locAyaToVal=parseInt(pVal);
   }
   document.getElementById(ayaToId).value=locAyaToVal ;
   vAyaTo=locAyaToVal;
