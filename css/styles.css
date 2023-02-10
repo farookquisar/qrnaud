@@ -4,6 +4,8 @@ body {
   background-color:#100e17;
   color: white;
   font-family:"helvetica neue",Helvetica,Arial,sans-serif;
+  display: grid;
+  place-items: center;
 }
 
 .container-fluid{
