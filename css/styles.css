@@ -1,12 +1,12 @@
 
 body {
-  text-align: center;
-  background-color:#100e17;
-  color: white;
-  font-family:"helvetica neue",Helvetica,Arial,sans-serif;
-  display: grid;
-  place-items: center;
-  height:100vh;
+    text-align: center;
+    background-color: #100e17;
+    color: white;
+    font-family: "helvetica neue",Helvetica,Arial,sans-serif;
+    display: grid;
+    align-content: center;
+    height: 100vh;
 }
 
 .container-fluid{
