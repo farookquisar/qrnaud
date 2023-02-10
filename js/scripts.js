@@ -185,6 +185,11 @@ curEventType=event.type;
        document.getElementById(playBtnId).click();
 
       }
+    
+    if (curEventTriggerId===ayaFrmId){
+      var ayaFrmVal = document.getElementById(ayaFrmId).value;
+      setAyaToVal(ayaFrmVal);
+    }
       /*enableDisableBut();
 
       var ayaToVal = document.getElementById(ayaToId).value;
