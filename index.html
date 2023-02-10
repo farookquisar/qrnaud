@@ -299,6 +299,17 @@
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 
       <!-- <script src="js/form-select2.js" charset="utf-8"></script> -->
+		<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').then(function(registration) {
+          console.log('Service Worker registered:', registration);
+        }).catch(function(error) {
+          console.error('Service Worker registration failed:', error);
+        });
+      });
+    }
+  </script>
 			<script src="js/scripts.js"></script>
 
 	</body>
