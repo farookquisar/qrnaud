@@ -324,7 +324,7 @@ function playAudioNew()
 
 
     
-    // resetPlayVals();
+    resetPlayVals();
     validateFromVals();
 
 
