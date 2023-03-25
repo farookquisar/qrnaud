@@ -11,6 +11,9 @@ self.addEventListener('install', function (event)
             ]);
         })
     );
+
+    // Lock the screen orientation to portrait-primary mode
+    screen.orientation.lock('portrait-primary');
 });
 
 self.addEventListener('fetch', function (event)
