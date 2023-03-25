@@ -27,6 +27,7 @@ const ayaFrmId = "ayaFrm";
 const ayaToId = "ayaTo";
 const playBtnId = "playBtn";
 const pauseBtnId = "pauseBtn";
+const playPauseBtnId = "playPauseBtn";
 const nextBtnId = "nextBtn";
 const prevBtnId = "prevBtn";
 const ayaKursiId = "ayaKursi";
@@ -60,8 +61,9 @@ var isCurPlaying = false;
 goodToGo = true;
 
 //All Buttons
-document.getElementById(playBtnId).addEventListener("click", xEventListner);
-document.getElementById(pauseBtnId).addEventListener("click", xEventListner);
+// document.getElementById(playBtnId).addEventListener("click", xEventListner);
+// document.getElementById(pauseBtnId).addEventListener("click", xEventListner);
+document.getElementById(playPauseBtnId).addEventListener("click", xEventListner);
 document.getElementById(nextBtnId).addEventListener("click", xEventListner);
 document.getElementById(prevBtnId).addEventListener("click", xEventListner);
 document.getElementById(ayaKursiId).addEventListener("click", xEventListner);
@@ -175,6 +177,8 @@ function xEventListner(event)
 
     }
 
+
+
     /*
      *********************************************************************************************************************************
                                                                 keyup Event
@@ -226,14 +230,41 @@ function xEventListner(event)
   */
     if (event.type == "click")
     {
+        let sura = document.getElementById(surahId).value;
+        let ayaFrm = document.getElementById(ayaFrmId).value;
+        let ayaTo = document.getElementById(ayaToId).value;
 
-        if (curEventTriggerId === "playBtn")
+        console.log('sura: ' + sura);
+        console.log('ayaFrm: ' + ayaFrm);
+        console.log('ayaTo: ' + ayaTo);
+
+        if (!sura || !ayaFrm || !ayaTo)
         {
-            playAudioNew();
-        } else if (curEventTriggerId === "pauseBtn")
+            console.log(' error');
+            showUserMsg(cStateErr, "Please check Surah And Aya Number");
+            return;
+        }
+
+        if (curEventTriggerId === "playPauseBtn")
         {
-            stopAudio();
-        } else if (curEventTriggerId === "nextBtn")
+            console.log('playPauseBtn');
+            if (newAudio)
+            {
+                console.log('newAudio');
+                newAudio.paused ? console.log('paused') : console.log('not paused');
+                newAudio.paused ? newAudio.play() : newAudio.pause();
+                // newAudio.paused ? playAudioNew() : stopAudio();
+            } else
+            {
+                console.log('else newAudio');
+                playAudioNew();
+            }
+        }
+        // else if (curEventTriggerId === "pauseBtn")
+        // {
+        //     stopAudio();
+        // }
+        else if (curEventTriggerId === "nextBtn")
         {
             nextAya();
         } else if (curEventTriggerId === "prevBtn")
@@ -276,6 +307,30 @@ function getFormInputs()
     //ChkAyaToAndAyaFrm
     chkAyaToAndAyaFrm();
 
+}
+
+
+
+/*
+ *********************************************************************************************************************************
+                                                            togglePlayPause
+ *********************************************************************************************************************************
+*/
+function togglePlayPause()
+{
+
+    console.log(newAudio);
+    // if (newAudio.paused)
+    // {
+    //     // audio.play();
+    //     playAudioNew();
+    //     document.getElementById('playPauseBtn').innerHTML = 'Pause';
+    // } else
+    // {
+    //     // audio.pause();
+    //     stopAudio();
+    //     document.getElementById('playPauseBtn').innerHTML = 'Play';
+    // }
 }
 
 /*
@@ -323,7 +378,7 @@ function playAudioNew()
 
 
 
-    
+
     resetPlayVals();
     validateFromVals();
 
@@ -338,7 +393,7 @@ function playAudioNew()
             reLoadReq = false;
         }
         playAud();
-        getFocus(pauseBtnId);
+        // getFocus(pauseBtnId);
 
         //enableDisableBut();
     }
@@ -533,14 +588,14 @@ function validateFromVals()
 function resetPlayVals()
 {
     //goodToGo=true;
-    if (!(lastEventTriggerId === pauseBtnId && curEventTriggerId === playBtnId))
-    {
-        newAudio = null;
-        audios = [];
-        audioAyas = [];
-        //audAyaTxtArb = [];
-        cnt = 0;
-    }
+    // if (!(lastEventTriggerId === pauseBtnId && curEventTriggerId === playBtnId))
+    // {
+    newAudio = null;
+    audios = [];
+    audioAyas = [];
+    //audAyaTxtArb = [];
+    cnt = 0;
+    // }
 
 }
 
