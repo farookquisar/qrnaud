@@ -35,6 +35,7 @@ const surahMulkId = "surahMulk";
 const surahSajadaId = "surahSajada";
 const surahKahfId = "surahKahf";
 var totPlaycnt = 0;
+let isChanged = true;
 
 
 
@@ -145,6 +146,7 @@ function xEventListner(event)
             event.target.value = '';
             reLoadReq = true;
             stopAudio();
+            resetPlayVals();
         }
 
         // if (curEventTriggerId==surahId){
@@ -234,29 +236,21 @@ function xEventListner(event)
         let ayaFrm = document.getElementById(ayaFrmId).value;
         let ayaTo = document.getElementById(ayaToId).value;
 
-        console.log('sura: ' + sura);
-        console.log('ayaFrm: ' + ayaFrm);
-        console.log('ayaTo: ' + ayaTo);
 
         if (!sura || !ayaFrm || !ayaTo)
         {
-            console.log(' error');
             showUserMsg(cStateErr, "Please check Surah And Aya Number");
             return;
         }
 
         if (curEventTriggerId === "playPauseBtn")
         {
-            console.log('playPauseBtn');
             if (newAudio)
             {
-                console.log('newAudio');
-                newAudio.paused ? console.log('paused') : console.log('not paused');
                 newAudio.paused ? newAudio.play() : newAudio.pause();
                 // newAudio.paused ? playAudioNew() : stopAudio();
             } else
             {
-                console.log('else newAudio');
                 playAudioNew();
             }
         }
