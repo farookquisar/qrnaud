@@ -143,10 +143,14 @@ function xEventListner(event)
 
         if (event.target.value)
         {
+            console.log(event.target.id);
             event.target.value = '';
             reLoadReq = true;
             stopAudio();
-            resetPlayVals();
+            if (event.target.id === 'ayaFrm' || event.target.id === 'ayaTo' || event.target.id === 'surah')
+            {
+                resetPlayVals();
+            }
         }
 
         // if (curEventTriggerId==surahId){
