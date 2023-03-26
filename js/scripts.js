@@ -73,13 +73,13 @@ document.getElementById(surahSajadaId).addEventListener("click", xEventListner);
 document.getElementById(surahKahfId).addEventListener("click", xEventListner);
 
 //All Inputs
-document.getElementById(ayaFrmId).addEventListener("change", xEventListner);
+// document.getElementById(ayaFrmId).addEventListener("change", xEventListner);
 document.getElementById(ayaFrmId).addEventListener("focus", xEventListner);
 document.getElementById(ayaFrmId).addEventListener("keyup", xEventListner);  //
-document.getElementById(ayaToId).addEventListener("change", xEventListner);
+// document.getElementById(ayaToId).addEventListener("change", xEventListner);
 document.getElementById(ayaToId).addEventListener("focus", xEventListner);
 document.getElementById(ayaToId).addEventListener("keyup", xEventListner);  //
-document.getElementById(surahId).addEventListener("change", xEventListner);
+// document.getElementById(surahId).addEventListener("change", xEventListner);
 document.getElementById(surahId).addEventListener("focus", xEventListner);
 document.getElementById(surahId).addEventListener("keyup", xEventListner);
 // screen.orientation.lock('portrait-primary');
