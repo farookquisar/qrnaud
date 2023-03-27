@@ -73,19 +73,15 @@ document.getElementById(surahSajadaId).addEventListener("click", xEventListner);
 document.getElementById(surahKahfId).addEventListener("click", xEventListner);
 
 //All Inputs
-// document.getElementById(ayaFrmId).addEventListener("change", xEventListner);
+document.getElementById(ayaFrmId).addEventListener("change", xEventListner);
 document.getElementById(ayaFrmId).addEventListener("focus", xEventListner);
 document.getElementById(ayaFrmId).addEventListener("keyup", xEventListner);  //
-// document.getElementById(ayaToId).addEventListener("change", xEventListner);
+document.getElementById(ayaToId).addEventListener("change", xEventListner);
 document.getElementById(ayaToId).addEventListener("focus", xEventListner);
 document.getElementById(ayaToId).addEventListener("keyup", xEventListner);  //
-// document.getElementById(surahId).addEventListener("change", xEventListner);
+document.getElementById(surahId).addEventListener("change", xEventListner);
 document.getElementById(surahId).addEventListener("focus", xEventListner);
 document.getElementById(surahId).addEventListener("keyup", xEventListner);
-// screen.orientation.lock('portrait-primary');
-
-
-
 //   input.addEventListener("keyup", function(event) {
 //   if (event.keyCode === 13) {
 //    event.preventDefault();
@@ -120,9 +116,6 @@ document.getElementById(reciterNameId).addEventListener("change", xEventListner)
 // document.getElementById('song').appendChild(sound);
 
 
-// var myScreenOrientation = window.screen.orientation;
-// myScreenOrientation.lock("portrait");
-
 
 
 function xEventListner(event)
@@ -145,38 +138,32 @@ function xEventListner(event)
                                                                 focus Event
      *********************************************************************************************************************************
   */
-    if (event.type === "focus" && (event.target.id === 'ayaFrm' || event.target.id === 'ayaTo' || event.target.id === 'surah'))
+    if (event.type == "focus")
     {
 
-        event.target.value = '';
-        reLoadReq = true;
-        stopAudio();
-        resetPlayVals();
+        if (event.target.value)
+        {
+            console.log(event.target.id);
+            event.target.value = '';
+            reLoadReq = true;
+            stopAudio();
+            if (event.target.id === 'ayaFrm' || event.target.id === 'ayaTo' || event.target.id === 'surah')
+            {
+                resetPlayVals();
+            }
+        }
+
+        // if (curEventTriggerId==surahId){
+        //       if (curTriggerItemVal ){
+        //       enableDisableBut();
+        //       }else {
+        //       }
+        // }
+
+        //event.target.value=event.target.value;
+        //enableDisableBut();
+
     }
-
-    // if (event.target.value)
-    // {
-    //     console.log(event.target.id);
-    //     event.target.value = '';
-    //     reLoadReq = true;
-    //     stopAudio();
-    //     if (event.target.id === 'ayaFrm' || event.target.id === 'ayaTo' || event.target.id === 'surah')
-    //     {
-    //         resetPlayVals();
-    //     }
-    // }
-
-    // if (curEventTriggerId==surahId){
-    //       if (curTriggerItemVal ){
-    //       enableDisableBut();
-    //       }else {
-    //       }
-    // }
-
-    //event.target.value=event.target.value;
-    //enableDisableBut();
-
-
 
     /*
      *********************************************************************************************************************************
@@ -184,17 +171,17 @@ function xEventListner(event)
      *********************************************************************************************************************************
   */
 
-    // if (event.type == "change")
-    // {
-    //     reLoadReq = true;
-    //     if (curEventTriggerId === reciterNameId)
-    //     {
-    //         stopAudio();
-    //     }
+    if (event.type == "change")
+    {
+        reLoadReq = true;
+        if (curEventTriggerId === reciterNameId)
+        {
+            stopAudio();
+        }
 
 
 
-    // }
+    }
 
 
 
@@ -204,44 +191,43 @@ function xEventListner(event)
      *********************************************************************************************************************************
   */
 
-    if (event.type == "keyup" && (event.target.id === 'ayaFrm' || event.target.id === 'ayaTo' || event.target.id === 'surah'))
+    if (event.type == "keyup")
     {
-        // stopAudio();
-        // reLoadReq = true;
+        stopAudio();
+        reLoadReq = true;
 
-        // if (event.keyCode === 13)
-        // {
-        //     event.preventDefault();
-        //     document.getElementById(playPauseBtn).click();
+        if (event.keyCode === 13)
+        {
+            event.preventDefault();
+            document.getElementById(playBtnId).click();
 
-        // }
+        }
 
         if (curEventTriggerId === ayaFrmId)
         {
             var ayaFrmVal = document.getElementById(ayaFrmId).value;
             setAyaToVal(ayaFrmVal);
         }
+        /*enableDisableBut();
+  
+        var ayaToVal = document.getElementById(ayaToId).value;
+        var ayaFrmVal = document.getElementById(ayaFrmId).value;
+  
+        if  ((curEventTriggerId===ayaFrmId) && (!ayaToVal) ||  ayaToVal< ayaFrmVal ){
+        setAyaToVal(ayaFrmVal);
+      }*/
+
+        /*var ayaToVal = document.getElementById(ayaToId).value;
+        var ayaFrmVal = document.getElementById(ayaFrmId).value;
+        if ( ((curEventTriggerId===ayaFrmId) && (!ayaToVal))  ||  (lastEventTriggerId===ayaFrmId && lastTriggerItemVal===ayaToVal && lastEventType===")  ) {  //(  (!ayaToVal) || (ayaToVal===ayaFrmVal) )){
+        document.getElementById(ayaToId).value=curTriggerItemVal;
+      }else if (    (curEventTriggerId===ayaToId && (!ayaFrmVal ))      ||  (lastEventTriggerId===ayaToId && lastTriggerItemVal===ayaFrmVal && lastEventType==="keyup")  ) {
+        document.getElementById(ayaFrmId).value=curTriggerItemVal;
+        }
+  
+  */
+
     }
-    /*enableDisableBut();
- 
-    var ayaToVal = document.getElementById(ayaToId).value;
-    var ayaFrmVal = document.getElementById(ayaFrmId).value;
- 
-    if  ((curEventTriggerId===ayaFrmId) && (!ayaToVal) ||  ayaToVal< ayaFrmVal ){
-    setAyaToVal(ayaFrmVal);
-  }*/
-
-    /*var ayaToVal = document.getElementById(ayaToId).value;
-    var ayaFrmVal = document.getElementById(ayaFrmId).value;
-    if ( ((curEventTriggerId===ayaFrmId) && (!ayaToVal))  ||  (lastEventTriggerId===ayaFrmId && lastTriggerItemVal===ayaToVal && lastEventType===")  ) {  //(  (!ayaToVal) || (ayaToVal===ayaFrmVal) )){
-    document.getElementById(ayaToId).value=curTriggerItemVal;
-  }else if (    (curEventTriggerId===ayaToId && (!ayaFrmVal ))      ||  (lastEventTriggerId===ayaToId && lastTriggerItemVal===ayaFrmVal && lastEventType==="keyup")  ) {
-    document.getElementById(ayaFrmId).value=curTriggerItemVal;
-    }
- 
-*/
-
-
 
     /*
      *********************************************************************************************************************************
@@ -261,25 +247,20 @@ function xEventListner(event)
             return;
         }
 
-        // if (curEventTriggerId === "playPauseBtn")
         if (curEventTriggerId === "playPauseBtn")
         {
-            if (audios)
+            if (newAudio)
             {
-                // newAudio.paused ? newAudio.play() : newAudio.pause();
-                // newAudio.stopped ? playAudioNew(): stopAudio();
+                newAudio.paused ? newAudio.play() : newAudio.pause();
                 // newAudio.paused ? playAudioNew() : stopAudio();
-                isPlaying ? audios[playTrck].pause() : audios[playTrck].play();
             } else
             {
                 playAudioNew();
             }
         }
-
         // else if (curEventTriggerId === "pauseBtn")
         // {
-        //     // stopAudio();
-        //     newAudio && newAudio.pause();
+        //     stopAudio();
         // }
         else if (curEventTriggerId === "nextBtn")
         {
@@ -992,7 +973,7 @@ function enableDisableButBkp()
    isPlaying
    *******************************************
 */
-function isPlaying(audElem)
+function isPlaying(audelem)
 {
     if (audios[playTrck])
     {
