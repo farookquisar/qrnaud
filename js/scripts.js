@@ -264,11 +264,12 @@ function xEventListner(event)
         // if (curEventTriggerId === "playPauseBtn")
         if (curEventTriggerId === "playPauseBtn")
         {
-            if (newAudio)
+            if (audios)
             {
-                newAudio.paused ? newAudio.play() : newAudio.pause();
-                newAudio.stopped ? playAudioNew(): stopAudio();
+                // newAudio.paused ? newAudio.play() : newAudio.pause();
+                // newAudio.stopped ? playAudioNew(): stopAudio();
                 // newAudio.paused ? playAudioNew() : stopAudio();
+                isPlaying ? audios[playTrck].pause() : audios[playTrck].play();
             } else
             {
                 playAudioNew();
