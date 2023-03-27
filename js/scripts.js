@@ -261,23 +261,26 @@ function xEventListner(event)
             return;
         }
 
-        /** if (curEventTriggerId === "playPauseBtn")
+        // if (curEventTriggerId === "playPauseBtn")
+        if (curEventTriggerId === "playPauseBtn")
         {
             if (newAudio)
             {
                 newAudio.paused ? newAudio.play() : newAudio.pause();
+                newAudio.stopped ? playAudioNew(): stopAudio();
                 // newAudio.paused ? playAudioNew() : stopAudio();
             } else
             {
                 playAudioNew();
             }
-        }*/
+        }
 
         // else if (curEventTriggerId === "pauseBtn")
         // {
-        //     stopAudio();
+        //     // stopAudio();
+        //     newAudio && newAudio.pause();
         // }
-        if (curEventTriggerId === "nextBtn")
+        else if (curEventTriggerId === "nextBtn")
         {
             nextAya();
         } else if (curEventTriggerId === "prevBtn")
@@ -988,7 +991,7 @@ function enableDisableButBkp()
    isPlaying
    *******************************************
 */
-function isPlaying(audelem)
+function isPlaying(audElem)
 {
     if (audios[playTrck])
     {
