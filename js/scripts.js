@@ -261,7 +261,7 @@ function xEventListner(event)
             return;
         }
 
-        if (curEventTriggerId === "playPauseBtn")
+        /** if (curEventTriggerId === "playPauseBtn")
         {
             if (newAudio)
             {
@@ -271,12 +271,13 @@ function xEventListner(event)
             {
                 playAudioNew();
             }
-        }
+        }*/
+
         // else if (curEventTriggerId === "pauseBtn")
         // {
         //     stopAudio();
         // }
-        else if (curEventTriggerId === "nextBtn")
+        if (curEventTriggerId === "nextBtn")
         {
             nextAya();
         } else if (curEventTriggerId === "prevBtn")
