@@ -58,8 +58,8 @@
 //All Buttons
   document.getElementById(playBtnId).addEventListener("click", xEventListner);
   document.getElementById(pauseBtnId).addEventListener("click", xEventListner);
-  document.getElementById(nextBtnId).addEventListener("click", xEventListner);
-  document.getElementById(prevBtnId).addEventListener("click", xEventListner);
+  // document.getElementById(nextBtnId).addEventListener("click", xEventListner);
+  // document.getElementById(prevBtnId).addEventListener("click", xEventListner);
   document.getElementById(ayaKursiId).addEventListener("click", xEventListner);
   document.getElementById(surahMulkId).addEventListener("click", xEventListner);
   document.getElementById(surahSajadaId).addEventListener("click", xEventListner);
@@ -732,14 +732,14 @@ function enableDisableBut(){
 
       }
 
-      if (vAyaFrm && vAyaTo && vSurah) {
-      if (parseInt(vAyaTo)>1){
-      document.getElementById("prevBtn").disabled = false; }
-      document.getElementById("nextBtn").disabled = false;
-      }else {
-      document.getElementById("prevBtn").disabled = true;
-      document.getElementById("nextBtn").disabled = true;
-      }
+      // if (vAyaFrm && vAyaTo && vSurah) {
+      // if (parseInt(vAyaTo)>1){
+      // document.getElementById("prevBtn").disabled = false; }
+      // document.getElementById("nextBtn").disabled = false;
+      // }else {
+      // document.getElementById("prevBtn").disabled = true;
+      // document.getElementById("nextBtn").disabled = true;
+      // }
 }
 
 /*
